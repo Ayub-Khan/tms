@@ -1,4 +1,4 @@
-"""Driver function."""
+"""Models for tailor management application."""
 
 from django.db import models
 

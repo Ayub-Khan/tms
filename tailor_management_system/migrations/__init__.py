@@ -1,1 +1,1 @@
-"""Driver function."""
+"""Migrations for tailor management system."""

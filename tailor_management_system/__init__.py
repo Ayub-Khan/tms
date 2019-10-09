@@ -1,1 +1,1 @@
-"""Driver function."""
+"""Tailor management application."""

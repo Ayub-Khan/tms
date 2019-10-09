@@ -1,0 +1,172 @@
+{
+	"info": {
+		"_postman_id": "5e3b8258-6be1-4857-be21-96198b54bdac",
+		"name": "client-crud",
+		"description": "Requests for testing client django application made with django rest framework.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get-clients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/client/clients/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"client",
+						"clients",
+						""
+					]
+				},
+				"description": "Gets all clients."
+			},
+			"response": []
+		},
+		{
+			"name": "get-client",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/client/clients/4/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"client",
+						"clients",
+						"4",
+						""
+					]
+				},
+				"description": "Gets all clients."
+			},
+			"response": []
+		},
+		{
+			"name": "delete-client",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/client/clients/4/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"client",
+						"clients",
+						"4",
+						""
+					]
+				},
+				"description": "Gets all clients."
+			},
+			"response": []
+		},
+		{
+			"name": "add-client",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Bruce Wayne\",\n\t\"age\" : 23,\n\t\"gender\" : \"M\",\n\t\"address\" : \"abc asdasd asdasd asdada\",\n\t\"phone_number\" : \"+9290078601\",\n\t\"email\" : \"abc@xyz.com\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/client/clients/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"client",
+						"clients",
+						""
+					]
+				},
+				"description": "Gets all clients."
+			},
+			"response": []
+		},
+		{
+			"name": "update-client",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Robin\",\n    \"age\": 18,\n    \"gender\": \"M\",\n    \"address\": \"shalimar\",\n    \"phone_number\": \"+92 90078601\",\n    \"email\": \"as@asda.com\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/client/clients/4/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"client",
+						"clients",
+						"4",
+						""
+					]
+				},
+				"description": "Gets all clients."
+			},
+			"response": []
+		}
+	]
+}

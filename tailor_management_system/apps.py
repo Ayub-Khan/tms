@@ -1,9 +1,9 @@
-"""Driver function."""
+"""Tailor management system application."""
 
 from django.apps import AppConfig
 
 
 class TailorManagementSystemConfig(AppConfig):
-    """Driver function."""
+    """Driver Tailor management system application config."""
 
     name = 'tailor_management_system'

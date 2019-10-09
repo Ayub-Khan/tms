@@ -1,4 +1,4 @@
-"""Driver function."""
+"""Views for tailor management application."""
 
 from django.shortcuts import render
 

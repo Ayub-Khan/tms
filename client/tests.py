@@ -1,4 +1,4 @@
-"""Tests for tailor management application."""
+"""Tests for application."""
 
 from django.test import TestCase
 
