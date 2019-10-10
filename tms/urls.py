@@ -20,5 +20,7 @@ from django.urls import include, path
 urlpatterns = [
     path('tailor_management_system/',
          include('tailor_management_system.urls')),
+    path('client/',
+         include('client.urls')),
     path('admin/', admin.site.urls),
 ]

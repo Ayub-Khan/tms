@@ -1,4 +1,4 @@
-"""A package for admin models."""
+"""Admin level models for client applciation."""
 
 from django.contrib import admin
 
