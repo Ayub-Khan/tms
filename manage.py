@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    """Driver function."""
+    """Django entery point for management commands."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tms.settings')
     try:
         from django.core.management import execute_from_command_line

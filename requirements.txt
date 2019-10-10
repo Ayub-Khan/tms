@@ -1,4 +1,8 @@
+# development
 pip
+django
+djangorestframework
+
+# testing
 pycodestyle
 pydocstyle
-django

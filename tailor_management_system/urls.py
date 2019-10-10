@@ -1,4 +1,4 @@
-"""urls for application."""
+"""urls for tms application."""
 
 from django.urls import path
 
