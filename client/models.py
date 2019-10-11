@@ -10,14 +10,15 @@ class Client(models.Model):
     age = models.PositiveIntegerField(default=18)
     gender = models.CharField(
         max_length=2,
-        choices=[('M', 'Male'), ('F', 'Female'), ('Ot', 'Other')]
+        choices=[('M', 'Male'), ('F', 'Female'), ('Ot', 'Other')],
+        default='M'
     )
     address = models.TextField(max_length=500)
     phone_number = models.CharField(max_length=15, unique=True)
     email = models.EmailField(max_length=50, unique=True)
 
     def __str__(self):
-        """Convert object to string having all fields data separated by _."""
+        """Convert object to String."""
         return 'name({})_email({})_phone({})'.format(
             self.name,
             self.email,
