@@ -17,7 +17,7 @@ class ClientView(APIView):
         """Get clients view."""
         clients = Client.objects.all()
         serializer_obj = ClientSerializer(clients, many=True)
-        return JsonResponse(serializer_obj.data, safe=False)
+        return JsonResponse(serializer_obj.data, safe=False, status=200)
 
     def post(self, request):
         """Add new client through post request."""
@@ -46,7 +46,7 @@ class ClientDetailView(APIView):
         """Get client by id view."""
         client = self._get_object(pk=pk)
         serializer_obj = ClientSerializer(client)
-        return JsonResponse(serializer_obj.data)
+        return JsonResponse(serializer_obj.data, status=200)
 
     def put(self, request, pk, format=None):
         """Update client."""
@@ -54,7 +54,7 @@ class ClientDetailView(APIView):
         serializer_obj = ClientSerializer(client, data=request.data)
         if serializer_obj.is_valid():
             serializer_obj.save()
-            return JsonResponse(serializer_obj.data)
+            return JsonResponse(serializer_obj.data, status=200)
         return JsonResponse(serializer_obj.errors, status=400)
 
     def delete(self, request, pk, format=None):
