@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ func }}Client Details</title>
+</head>
+
+<body>
+    <a href="{% url 'tailor_management_system:dashboard' %}"> <Button> Home Page </Button></a>
+    <h2>Enter Details</h2>
+    {% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="{{ func }}">
+    </form>
+    {% endblock %}
+</body>
+
+</html>

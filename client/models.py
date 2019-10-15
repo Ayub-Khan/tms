@@ -26,3 +26,80 @@ class Client(models.Model):
         )
 
     objects = models.Manager()
+
+
+class MaleMeasurements(models.Model):
+    """Male Measurements model."""
+
+    unit = models.CharField(
+        max_length=3,
+        choices=[('cm', 'Centimetre'), ('inc', 'Inches')],
+        default='inc'
+    )
+    client = models.OneToOneField(Client, on_delete=models.CASCADE)
+    shoulder = models.PositiveSmallIntegerField()
+    armscye = models.PositiveSmallIntegerField()
+    chest = models.PositiveSmallIntegerField()
+    bust = models.PositiveSmallIntegerField()
+    waist = models.PositiveSmallIntegerField()
+    arm_length = models.PositiveSmallIntegerField()
+    hips = models.PositiveSmallIntegerField()
+    ankle = models.PositiveSmallIntegerField()
+    neck = models.PositiveSmallIntegerField()
+    back_width = models.PositiveSmallIntegerField()
+    inseam = models.PositiveSmallIntegerField()
+    wrist = models.PositiveSmallIntegerField()
+    crutch_depth = models.PositiveSmallIntegerField(blank=True)
+    waist_to_knee = models.PositiveSmallIntegerField(blank=True)
+    knee_line = models.PositiveSmallIntegerField(blank=True)
+    biceps = models.PositiveSmallIntegerField(blank=True)
+
+    def __str__(self):
+        """Convert object to String."""
+        return 'shoulder({})_chest({})_inseam({})'.format(
+            self.shoulder,
+            self.chest,
+            self.inseam
+        )
+    objects = models.Manager()
+
+
+class FemaleMeasurements(models.Model):
+    """Female Measurements model."""
+
+    unit = models.CharField(
+        max_length=3,
+        choices=[('cm', 'Centimetre'), ('inc', 'Inches')],
+        default='inc'
+    )
+    client = models.OneToOneField(Client, on_delete=models.CASCADE)
+    shoulder = models.PositiveSmallIntegerField()
+    chest = models.PositiveSmallIntegerField()
+    bust = models.PositiveSmallIntegerField()
+    waist = models.PositiveSmallIntegerField()
+    hips = models.PositiveSmallIntegerField()
+    armscye = models.PositiveSmallIntegerField()
+    bust = models.PositiveSmallIntegerField()
+    arm_length = models.PositiveSmallIntegerField()
+    ankle = models.PositiveSmallIntegerField()
+    neck = models.PositiveSmallIntegerField()
+    back_width = models.PositiveSmallIntegerField()
+    inseam = models.PositiveSmallIntegerField()
+    wrist = models.PositiveSmallIntegerField()
+    front_sh_to_waist = models.PositiveSmallIntegerField(blank=True)
+    crutch_depth = models.PositiveSmallIntegerField(blank=True)
+    waist_to_knee = models.PositiveSmallIntegerField(blank=True)
+    waist_to_hip = models.PositiveSmallIntegerField(blank=True)
+    knee_line = models.PositiveSmallIntegerField(blank=True)
+    top_arm = models.PositiveSmallIntegerField(blank=True)
+    body_rise = models.PositiveSmallIntegerField(blank=True)
+    waist_to_floor = models.PositiveSmallIntegerField(blank=True)
+
+    def __str__(self):
+        """Convert object to String."""
+        return 'shoulder({})_chest({})_inseam({})'.format(
+            self.shoulder,
+            self.chest,
+            self.inseam
+        )
+    objects = models.Manager()

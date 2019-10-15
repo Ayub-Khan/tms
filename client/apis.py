@@ -1,17 +1,19 @@
-"""All the views."""
+"""All the Client APIs."""
 
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404, HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
+
 from client.models import Client
 from client.serializer import ClientSerializer
-from rest_framework.views import APIView
-from django.core.exceptions import ObjectDoesNotExist
-from rest_framework import status
 
 
 class ClientView(APIView):
     """Class based view for Client for listing and adding."""
+
+    api_url = settings.BASE_URL + '/clients/'
 
     def get(self, request):
         """Get clients view."""
@@ -64,4 +66,4 @@ class ClientDetailView(APIView):
         return HttpResponse(status=204)
 
 
-client_detail_view = ClientDetailView.as_view()
+client_detail_view_api = ClientDetailView.as_view()

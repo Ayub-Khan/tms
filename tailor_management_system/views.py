@@ -1,8 +1,5 @@
 """Views for tailor management system application."""
 
-from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponse
 from django.template import loader
 from django.views import View
@@ -15,8 +12,7 @@ class DashboardView(View):
         """Dashboard view."""
         template = loader.get_template(
             'tailor_management_system/dashboard.html')
-        context = {'welcome_msg': 'Hello World!'}
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(request=request))
 
 
 dashboard_view = DashboardView.as_view()

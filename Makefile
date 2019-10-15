@@ -34,9 +34,10 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 test: ## run unit tests tp check code funcionality
-	python manage.py test client
+	python manage.py test
 	
 test-quality: ## run test quality checks
+	isort -rc .
 	pycodestyle --show-source .
 	pydocstyle .
 

@@ -6,3 +6,4 @@ djangorestframework==3.10.3
 # testing
 pycodestyle==2.5.0
 pydocstyle==4.0.1
+isort==4.3.21
