@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Clients</title>
+</head>
+
+<body>
+    <a href="{% url 'tailor_management_system:dashboard' %}"> <Button> Home Page </Button></a>
+    <a href="{% url 'client:client_add' %}"> <Button> Add Client </Button></a>
+    <h2>Clients</h2>
+    {% for client in clients %}
+    <ul>
+        <li>
+            <div>
+                <a href="{% url 'client:client_detail' client.id%}">{{ client.name }}</a></br></br>
+                <a href="{% url 'client:client_update' client.id%}"><Button> Update </Button></a></br></br>
+                <a href="{% url 'client:client_delete' client.id%}"><Button> Delete </Button></a></br></br>                
+            </div>
+        </li>
+    </ul>
+    {% endfor %}
+</body>
+
+</html>

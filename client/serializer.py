@@ -1,8 +1,10 @@
 """Serializers for models."""
 
-from rest_framework import serializers
-from client.models import Client
 import re
+
+from rest_framework import serializers
+
+from client.models import Client
 
 
 class ClientSerializer(serializers.ModelSerializer):
