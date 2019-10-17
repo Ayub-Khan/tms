@@ -1,6 +1,7 @@
 """All the views."""
 
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader
@@ -11,7 +12,7 @@ from client.models import Client
 from client.utils import get_measurements
 
 
-class ClientListView(View):
+class ClientListView(LoginRequiredMixin, View):
     """Class based view for Client for listing all the clients."""
 
     def get(self, request):
@@ -27,7 +28,7 @@ class ClientListView(View):
 client_list_view = ClientListView.as_view()
 
 
-class ClientDetailView(View):
+class ClientDetailView(LoginRequiredMixin, View):
     """Class based view for displaying client detail."""
 
     def get(self, request, pk, format=None):
@@ -47,7 +48,7 @@ class ClientDetailView(View):
 client_detail_view = ClientDetailView.as_view()
 
 
-class ClientDeleteView(View):
+class ClientDeleteView(LoginRequiredMixin, View):
     """Class based view for displaying client detail."""
 
     def get(self, request, pk, format=None):
@@ -60,7 +61,7 @@ class ClientDeleteView(View):
 client_delete_view = ClientDeleteView.as_view()
 
 
-class ClientAddView(View):
+class ClientAddView(LoginRequiredMixin, View):
     """Class based view for adding new."""
 
     def get(self, request):
@@ -82,7 +83,7 @@ class ClientAddView(View):
 client_add_view = ClientAddView.as_view()
 
 
-class ClientUpdateView(View):
+class ClientUpdateView(LoginRequiredMixin, View):
     """Class based view for displaying client detail."""
 
     def get(self, request, pk):

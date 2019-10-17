@@ -6,8 +6,8 @@
 </head>
 
 <body>
+    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
     <a href="{% url 'tailor_management_system:dashboard' %}"> <Button> Home Page </Button></a>
-
     <h2>{{ client.name }}'s Details</h2>
     <table>
         <tr>
@@ -51,7 +51,7 @@
             </td>
         </tr>
     </table>
-    
+
     <a href="{% url 'client:client_update' client.id %}"> <Button>Update</Button></a>
 
     {% if measurements_exist %}

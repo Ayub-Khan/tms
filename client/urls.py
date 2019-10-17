@@ -2,11 +2,11 @@
 
 from django.urls import path
 
-from client.apis import client_detail_view_api, client_view
+from client.client_apis import client_detail_view_api, client_view
 from client.views.client_views import (
     client_add_view,
     client_delete_view,
-    client_detail_view, 
+    client_detail_view,
     client_list_view,
     client_update_view
 )
@@ -31,5 +31,5 @@ urlpatterns = [
     path('clients/api/detail/<int:pk>/', client_detail_view_api, name='client_detail_api'),
     path('clients/api/delete/<int:pk>/', client_detail_view_api, name='client_delete_api'),
     path('clients/api/add/', client_view, name='client_add_api'),
-    path('clients/api/update/<int:pk>/', client_detail_view_api, name='client_update_api')
+    path('clients/api/update/<int:pk>/', client_detail_view_api, name='client_update_api'),
 ]

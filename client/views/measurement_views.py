@@ -1,6 +1,7 @@
 """Views for measurements."""
 
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework.views import View
@@ -9,7 +10,7 @@ from client.forms import FemaleMeasurementsForm, MaleMeasurementsForm
 from client.models import Client, FemaleMeasurements, MaleMeasurements
 
 
-class MeasurementsAddView(View):
+class MeasurementsAddView(LoginRequiredMixin, View):
     """Class based view for adding MaleMeasurements."""
 
     def _add_measurements(self, request, Form, client):
@@ -51,7 +52,7 @@ class MeasurementsAddView(View):
 measurements_add_view = MeasurementsAddView.as_view()
 
 
-class MeasurementsUpdateView(View):
+class MeasurementsUpdateView(LoginRequiredMixin, View):
     """Class based view for adding MaleMeasurements."""
 
     def _update_measurements(self, request, Form, client, instance):
