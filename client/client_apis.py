@@ -1,9 +1,12 @@
 """All the Client APIs."""
 
 from django.conf import settings
+from django.contrib.auth import authenticate
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404, HttpResponse, JsonResponse
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.parsers import JSONParser
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 
 from client.models import Client
@@ -13,7 +16,8 @@ from client.serializer import ClientSerializer
 class ClientView(APIView):
     """Class based view for Client for listing and adding."""
 
-    api_url = settings.BASE_URL + '/clients/'
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         """Get clients view."""
@@ -36,6 +40,9 @@ client_view = ClientView.as_view()
 
 class ClientDetailView(APIView):
     """Class based view for Client for updating, getting and deleting."""
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def _get_object(self, pk):
         """First we see if client exists."""

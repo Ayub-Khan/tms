@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tailor_management_system.apps.TailorManagementSystemConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'client.apps.ClientConfig',
 ]
 
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'tms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,3 +129,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 ALLOWED_HOSTS = ['*']
 BASE_URL = 'http://127.0.0.1:8000'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = BASE_URL
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
+}
+
+NOSE_ARGS = ['--nocapture', '--nologcapture']

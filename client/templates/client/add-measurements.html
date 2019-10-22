@@ -6,8 +6,9 @@
 </head>
 
 <body>
+    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
     <a href="{% url 'tailor_management_system:dashboard' %}"> <Button> Home Page </Button></a>
-    
+
     <h2>Enter Measurment Details For {{ client_name }}</h2>
     {% block content %}
     <form action="" method="post">
