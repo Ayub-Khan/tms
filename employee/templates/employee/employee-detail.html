@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <title>Employee Detail</title>
+</head>
+
+<body>
+        <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
+        <a href="{% url 'employee:employees' %}"> <Button> Employee List </Button></a>
+        <table>
+                <tr>
+                        <td>Name:</td>
+                        <td>{{ employee.name }}</td>
+                </tr>
+                <tr>
+                        <td>Gender:</td>
+                        <td>{{ employee.gender }}</td>
+                </tr>
+                <tr>
+                        <td>Phone:</td>
+                        <td>{{ employee.phone_number }}</td>
+                </tr>
+                <tr>
+                        <td>Address:</td>
+                        <td>{{ employee.address }}</td>
+                </tr>
+                <tr>
+                        <td>Joining Date:</td>
+                        <td>{{ employee.joining_date }}</td>
+                </tr>
+        </table>
+</body>
+
+</html>

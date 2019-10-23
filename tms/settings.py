@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'client.apps.ClientConfig',
+    'order.apps.OrderConfig',
+    'employee.apps.EmployeeConfig',
 ]
 
 MIDDLEWARE = [
