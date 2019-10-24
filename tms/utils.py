@@ -1,14 +1,18 @@
 """Utility class for frequently needed functions."""
 
+import os
 from datetime import datetime, timedelta
 from urllib.parse import urlunparse
 
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework.test import APIClient
 
 from client.models import Client, MaleMeasurements
 from employee.models import Employee
 from order.models import Order, Task
+from product.models import Product, ProductImages
 
 
 class TestDbSetUp:
@@ -63,6 +67,32 @@ class TestDbSetUp:
         employee.save()
         return employee
 
+    def create_product(self):
+        """Create product."""
+        product = Product.objects.create(**{
+            'title': 'S Afr',
+            'product_type': 'Shalwar Kameez',
+            'stock': 200,
+            'price': 5000,
+        })
+        product.save()
+        return product
+
+    def create_product_images(self, product):
+        """Create product."""
+        path = pth = settings.BASE_DIR + '/tms/test_image.jpg'
+        test_img = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=open(path, 'rb').read(),
+            content_type='image/jpeg'
+        )
+        product_images = ProductImages.objects.create(**{
+            'product': product,
+            'image1': test_img
+        })
+        product_images.save()
+        return product_images
+
     def create_task(self, order, employee):
         """Create task."""
         delivery_date = datetime.today() + timedelta(days=5)
@@ -101,7 +131,3 @@ class TestDbSetUp:
         })
         measurements.save()
         return measurements
-
-    def get_url_for_test_against_endpoint(self, endpoint):
-        """Return complete URL against end point for test cases."""
-        return urlunparse(('http', '127.0.0.1:8000', endpoint, None, None, None))

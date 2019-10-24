@@ -3,6 +3,7 @@
 from urllib.parse import urlunparse
 
 from django.test import TestCase
+from django.urls import reverse
 from rest_framework.test import APIClient
 
 from order.forms import OrderForm
@@ -22,7 +23,7 @@ class OrderTestCase(TestCase, TestDbSetUp):
     def test_get_orders(self):
         """Get order test case."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/orders/')
+        path = reverse('order:orders')
         response = self.api_client.get(path)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'order/list-orders.html')
@@ -30,7 +31,7 @@ class OrderTestCase(TestCase, TestDbSetUp):
     def test_get_order(self):
         """Get order test case."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/order/1/')
+        path = reverse('order:order_detail', kwargs={'id': self.order.id})
         response = self.api_client.get(path)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'order/order-detail.html')
@@ -38,7 +39,7 @@ class OrderTestCase(TestCase, TestDbSetUp):
     def test_add_order(self):
         """Check add order template."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/order/add/{}/'.format(self.client.id))
+        path = reverse('order:order_add', kwargs={'client_id': self.client.id})
         response = self.api_client.get(
             path
         )

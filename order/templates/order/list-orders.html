@@ -7,7 +7,7 @@
 
 <body>
     <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
-    <a href="{% url 'order:orders' %}"> <Button> Home Page </Button></a>
+    <a href="{% url 'tailor_management_system:dashboard' %}"> <Button> Home Page </Button></a>
     <h2>Orders</h2>
     {% for order in orders %}
     <ul>

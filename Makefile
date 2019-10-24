@@ -33,6 +33,10 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
+migrations: ## make migrations
+	python manage.py makemigrations
+	python manage.py migrate
+
 test: ## run unit tests tp check code funcionality
 	python manage.py test
 	

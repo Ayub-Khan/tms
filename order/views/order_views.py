@@ -18,11 +18,10 @@ class OrderListView(LoginRequiredMixin, View):
     def get(self, request):
         """Render order list template.."""
         orders = Order.objects.exclude(status=Order.CLOSED)
-        template = loader.get_template('order/list-orders.html')
         context = {
             'orders': orders,
         }
-        return HttpResponse(template.render(context, request))
+        return render(request, 'order/list-orders.html', context)
 
 
 order_list_view = OrderListView.as_view()
@@ -34,11 +33,10 @@ class OrderDetailView(LoginRequiredMixin, View):
     def get(self, request, id):
         """Render order detail tempalte.."""
         order = Order.objects.get(id=id)
-        template = loader.get_template('order/order-detail.html')
         context = {
             'order': order,
         }
-        return HttpResponse(template.render(context, request))
+        return render(request, 'order/order-detail.html', context)
 
 
 order_detail_view = OrderDetailView.as_view()

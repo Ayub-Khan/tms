@@ -4,13 +4,14 @@ from django.db import models
 
 from client.models import Client
 from employee.models import Employee
+from product.models import Product
 
 
 class Order(models.Model):
     """Order model."""
 
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    product = models.PositiveIntegerField(blank=True, default=None, null=True)
+    product = models.ForeignKey(Product, blank=True, default=None, null=True, on_delete=models.CASCADE)
 
     RECIEVED, IN_PROGRESS, DELIVERED, CLOSED = 'R', 'I', 'D', 'C'
     ORDER_STATUS_CHOICES = [(RECIEVED, 'Recieved'), (IN_PROGRESS, 'In Progress'),

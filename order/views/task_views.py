@@ -19,11 +19,10 @@ class TaskListView(LoginRequiredMixin, View):
     def get(self, request):
         """Render task list template.."""
         tasks = Task.objects.all()
-        template = loader.get_template('task/list-tasks.html')
         context = {
             'tasks': tasks,
         }
-        return HttpResponse(template.render(context, request))
+        return render(request, 'task/list-tasks.html', context)
 
 
 task_list_view = TaskListView.as_view()
@@ -39,7 +38,7 @@ class TaskDetailView(LoginRequiredMixin, View):
         context = {
             'task': task,
         }
-        return HttpResponse(template.render(context, request))
+        return render(request, 'task/task-detail.html', context)
 
 
 task_detail_view = TaskDetailView.as_view()
@@ -100,8 +99,9 @@ task_update_view = TaskUpdateView.as_view()
 class TaskDeleteView(LoginRequiredMixin, View):
     """Class based view for tasks for deletion of task."""
 
-    def get(self, request, id):
+    def post(self, request):
         """Render task list tempalte after deletion."""
+        id = request.POST.get('id')
         task = get_object_or_404(Task, id=id)
         task.delete()
         return redirect('order:tasks')

@@ -3,6 +3,7 @@
 
 <head>
     <title>{{ title }}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -16,11 +17,26 @@
             <div>
                 <a href="{% url 'client:client_detail' client.id%}">{{ client.name }}</a></br></br>
                 <a href="{% url 'client:client_update' client.id%}"><Button> Update </Button></a></br></br>
-                <a href="{% url 'client:client_delete' client.id%}"><Button> Delete </Button></a></br></br>
                 <a href="{% url 'order:order_add' client.id%}"><Button> Add Order </Button></a></br></br>
+                <a href="#" id="{{ client.id }}"><Button> Delete </Button></a>
+                </br></br>
             </div>
         </li>
     </ul>
+    <script>
+        $(document).ready(function () {
+            $('#{{ client.id }}').click(function () {
+                var url = "{% url 'client:client_delete' %}"
+                var id = "{{ client.id }}"
+                var intId = parseInt(id)
+                var data = { id: intId, csrfmiddlewaretoken: '{{ csrf_token }}', contentType: 'application/json' }
+                $.post(url, data, function (data, status) {
+                    console.log(`${data} and status is ${status}`)
+                    location.reload(true)
+                })
+            })
+        })
+    </script>
     {% endfor %}
 </body>
 

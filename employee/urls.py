@@ -13,5 +13,5 @@ urlpatterns = [
     path('employee/<int:id>/', employee_detail_view, name='employee_detail'),
     path('employee/add/', employee_add_view, name='employee_add'),
     path('employee/update/<int:id>/', employee_update_view, name='employee_update'),
-    path('employee/delete/<int:id>/', employee_delete_view, name='employee_delete'),
+    path('employee/delete/', employee_delete_view, name='employee_delete'),
 ]

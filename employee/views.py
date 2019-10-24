@@ -18,11 +18,10 @@ class EmployeeListView(LoginRequiredMixin, View):
     def get(self, request):
         """Render employee list template.."""
         employees = Employee.objects.all()
-        template = loader.get_template('employee/list-employees.html')
         context = {
             'employees': employees,
         }
-        return HttpResponse(template.render(context, request))
+        return render(request, 'employee/list-employees.html', context)
 
 
 employee_list_view = EmployeeListView.as_view()
@@ -34,11 +33,10 @@ class EmployeeDetailView(LoginRequiredMixin, View):
     def get(self, request, id):
         """Render Employee detail tempalte.."""
         employee = Employee.objects.get(id=id)
-        template = loader.get_template('employee/employee-detail.html')
         context = {
             'employee': employee,
         }
-        return HttpResponse(template.render(context, request))
+        return render(request, 'employee/employee-detail.html', context)
 
 
 employee_detail_view = EmployeeDetailView.as_view()
@@ -93,8 +91,9 @@ employee_update_view = EmployeeUpdateView.as_view()
 class EmployeeDeleteView(LoginRequiredMixin, View):
     """Class based view for deleting Employee."""
 
-    def get(self, request, id):
+    def post(self, request):
         """Delete employee."""
+        id = request.POST.get('id')
         employee = get_object_or_404(Employee, id=id)
         employee.delete()
         return redirect('employee:employees')
