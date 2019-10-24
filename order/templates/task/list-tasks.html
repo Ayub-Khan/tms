@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tasks</title>
+</head>
+
+<body>
+    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
+    <a href="{% url 'order:tasks' %}"> <Button> List Tasks </Button></a>
+    <h2>Tasks</h2>
+    {% for task in tasks %}
+    <ul>
+        <li>
+            <div>
+                <a href="{% url 'order:task_detail' task.order.id%}">                    
+                </br>Task: {{ task.description }} - Employee: {{ task.employee_id.name }} - OrderId: {{ task.order.id }}
+                </a></br></br>
+                <a href="{% url 'order:task_update' task.id%}"><Button> Update </Button></a></br></br>
+                <a href="{% url 'order:task_delete' task.id%}"><Button> Delete </Button></a></br></br>
+            </div>
+        </li>
+    </ul>
+    {% endfor %}
+</body>
+
+</html>

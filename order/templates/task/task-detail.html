@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <title>Task Detail</title>
+</head>
+
+<body>
+        <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
+        <a href="{% url 'order:tasks' %}"> <Button> Tasks List </Button></a>
+        <h2>Task#{{ task.id }}'s Details</h2>
+        <table>
+                <tr>
+                        <td>Order Id:</td>
+                        <td>{{ task.order.id }}</td>
+                </tr>
+                <tr>
+                        <td>Assigned to:</td>
+                        <td>{{ task.employee_id.name }}</td>
+                </tr>
+                <tr>
+                        <td>Description:</td>
+                        <td>{{ task.description }}</td>
+                </tr>
+                <tr>
+                        <td>Deadline:</td>
+                        <td>{{ task.deadline }}</td>
+                </tr>
+        </table>
+</body>
+
+</html>

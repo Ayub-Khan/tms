@@ -5,16 +5,16 @@ import json
 from rest_framework.test import APIClient
 
 from client.tests.client_api_tests import WrapperTestClass
-from client.utils import get_url_for_test_against_endpoint
+from tms.utils import TestDbSetUp
 
 
-class TokenAuthTests(WrapperTestClass.ClientTestCase):
+class TokenAuthTests(WrapperTestClass.ClientTestCase, TestDbSetUp):
     """Token auth based client tests."""
 
     def get_authenticated_api_client(self):
         """Get token recieved on login."""
         api_client = APIClient()
-        login_path = get_url_for_test_against_endpoint('/api/login')
+        login_path = self.get_url_for_test_against_endpoint('/api/login')
         login_response = api_client.post(
             path=login_path,
             data=json.dumps({'username': self.username, 'password': self.password}),

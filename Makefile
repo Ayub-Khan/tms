@@ -37,9 +37,12 @@ test: ## run unit tests tp check code funcionality
 	python manage.py test
 	
 test-quality: ## run test quality checks
-	isort -rc .
+	isort -rc . --diff
 	pycodestyle --show-source .
 	pydocstyle .
 
 requirements: ## installs all dependencies
 	pip install -r requirements.txt
+
+run: ## run server
+	python manage.py runserver

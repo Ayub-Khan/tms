@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ func }} Employee Details</title>
+</head>
+
+<body>
+    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
+    <a href="{% url 'employee:employees' %}"> <Button> List Employees </Button></a>
+    <h2>Enter Details</h2>
+    {% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="{{ func }}">
+    </form>
+    {% endblock %}
+</body>
+
+</html>

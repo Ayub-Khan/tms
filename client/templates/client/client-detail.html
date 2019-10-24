@@ -53,6 +53,7 @@
     </table>
 
     <a href="{% url 'client:client_update' client.id %}"> <Button>Update</Button></a>
+    <a href="{% url 'order:order_add' client.id %}"> <Button>Add Order</Button></a>
 
     {% if measurements_exist %}
     <h2>{{ client.name }}'s Measurements</h2>

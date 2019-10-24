@@ -13,38 +13,24 @@ from rest_framework.test import APIClient
 
 from client.forms import ClientForm, MaleMeasurementsForm
 from client.models import Client, MaleMeasurements
-from client.utils import get_url_for_test_against_endpoint
+from tms.utils import TestDbSetUp
 
 
 class WrapperTestClass:
     """Wrapper class for our TestCase class."""
 
-    class ClientTestCase(TestCase):
+    class ClientTestCase(TestCase, TestDbSetUp):
         """Common test case class having methods required in both basic and token auth tests."""
 
         def setUp(self):
             """Create a dummy user for the purpose of testing."""
-            self.username = 'test_user'
-            self.password = '12345678'
-            self.user, p = User.objects.get_or_create(username=self.username)
-            self.user.set_password(self.password)
-            self.user.save()
-            self.client_email = 'jon@nightwatch.com'
-            self.client_phone = '+9290078601'
-            self.client = Client.objects.create(**{
-                'name': 'Jon Snow',
-                'age': 18,
-                'gender': 'M',
-                'address': 'night watch wall',
-                'phone_number': self.client_phone,
-                'email': self.client_email
-            })
-            self.client.save()
+            self.user, self.username, self.password = self.create_user()
+            self.client = self.create_client()
 
         def test_get_login_response(self):
             """Test login."""
             api_client = self.get_authenticated_api_client()
-            path = get_url_for_test_against_endpoint('/api/login')
+            path = self.get_url_for_test_against_endpoint('/api/login')
             response = api_client.post(
                 path=path,
                 data=json.dumps({'username': self.username, 'password': self.password}),
@@ -60,7 +46,7 @@ class WrapperTestClass:
         def test_get_clients(self):
             """Test get client api."""
             api_client = self.get_authenticated_api_client()
-            path = get_url_for_test_against_endpoint('/clients/api/')
+            path = self.get_url_for_test_against_endpoint('/clients/api/')
             response = api_client.get(
                 path
             )
@@ -70,7 +56,7 @@ class WrapperTestClass:
         def test_get_client_by_id(self):
             """Test get client details by id api."""
             api_client = self.get_authenticated_api_client()
-            path = get_url_for_test_against_endpoint('clients/api/detail/1/')
+            path = self.get_url_for_test_against_endpoint('clients/api/detail/1/')
             response = api_client.get(
                 path
             )
@@ -80,14 +66,14 @@ class WrapperTestClass:
         def test_update_client_by_id(self):
             """Test update client by id api."""
             api_client = self.get_authenticated_api_client()
-            path = get_url_for_test_against_endpoint('clients/api/update/1/')
+            path = self.get_url_for_test_against_endpoint('clients/api/update/1/')
             data = {
                 'name': 'Jon Snow',
                 'age': 18,
                 'gender': 'M',
                 'address': 'night watch wall',
                 'phone_number': '+9290078602',
-                'email': self.client_email,
+                'email': self.client.email,
             }
             api_client.put(
                 path=path,
@@ -99,7 +85,7 @@ class WrapperTestClass:
         def test_add_client(self):
             """Add client by id api."""
             api_client = self.get_authenticated_api_client()
-            path = get_url_for_test_against_endpoint('clients/api/add/')
+            path = self.get_url_for_test_against_endpoint('clients/api/add/')
             data = {
                 'name': 'Jon Snow',
                 'age': 18,
@@ -118,7 +104,7 @@ class WrapperTestClass:
         def test_delete_client_by_id(self):
             """Delete client by id api."""
             api_client = self.get_authenticated_api_client()
-            path = get_url_for_test_against_endpoint('clients/api/delete/{}/'.format(str(self.client.id)))
+            path = self.get_url_for_test_against_endpoint('clients/api/delete/{}/'.format(str(self.client.id)))
             api_client.delete(
                 path=path
             )

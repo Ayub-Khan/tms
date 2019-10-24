@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Orders</title>
+</head>
+
+<body>
+    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
+    <a href="{% url 'order:orders' %}"> <Button> Home Page </Button></a>
+    <h2>Orders</h2>
+    {% for order in orders %}
+    <ul>
+        <li>
+            <div>
+                <a href="{% url 'order:order_detail' order.id%}"></br>Order: {{ order.order }}</a></br></br>
+                <a href="{% url 'order:order_update' order.id%}"><Button> Update </Button></a></br></br>
+            </div>
+        </li>
+    </ul>
+    {% endfor %}
+</body>
+
+</html>

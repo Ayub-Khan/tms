@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Employees</title>
+</head>
+
+<body>
+    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
+    <a href="{% url 'employee:employee_add' %}"> <Button> Add Employee </Button></a>
+    <a href="{% url 'tailor_management_system:dashboard' %}"> <Button> Dashboard </Button></a>
+    <h2>Employees</h2>
+    {% for employee in employees %}
+    <ul>
+        <li>
+            <div>
+                <a href="{% url 'employee:employee_detail' employee.id%}"></br>Employee: {{ employee.name }}</a></br></br>
+                <a href="{% url 'employee:employee_update' employee.id%}"><Button> Update </Button></a></br></br>
+            </div>
+        </li>
+    </ul>
+    {% endfor %}
+</body>
+
+</html>
