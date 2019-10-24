@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader
+from django.template import loader  # RequestContext
 from rest_framework.views import View
 
 from client.forms import ClientForm
