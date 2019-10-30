@@ -1,6 +1,7 @@
 """Tests for employee application."""
 
 from django.test import TestCase
+from django.urls import reverse
 from rest_framework.test import APIClient
 
 from employee.forms import EmployeeForm
@@ -20,7 +21,7 @@ class EmployeeTestCases(TestCase, TestDbSetUp):
     def test_list_employees(self):
         """Get employees test case."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/employees/')
+        path = reverse('employee:employees')
         response = self.api_client.get(path)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'employee/list-employees.html')
@@ -28,7 +29,7 @@ class EmployeeTestCases(TestCase, TestDbSetUp):
     def test_detail_employee(self):
         """Get employees test case."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/employee/{}/'.format(self.employee.id))
+        path = reverse('employee:employee_detail', kwargs={'id': self.employee.id})
         response = self.api_client.get(path)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'employee/employee-detail.html')
@@ -36,7 +37,7 @@ class EmployeeTestCases(TestCase, TestDbSetUp):
     def test_add_employee(self):
         """Check add employee template."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/employee/add/')
+        path = reverse('employee:employee_add')
         response = self.api_client.get(
             path
         )
@@ -48,7 +49,8 @@ class EmployeeTestCases(TestCase, TestDbSetUp):
     def test_delete_employee(self):
         """Delete employee test case."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/employee/delete/{}/'.format(self.employee.id))
-        response = self.api_client.get(path)
+        path = reverse('employee:employee_delete')
+        data = {'id': self.employee.id}
+        response = self.api_client.post(path, data)
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Employee.objects.filter(id=self.employee.id).exists())

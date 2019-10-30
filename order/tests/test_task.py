@@ -3,6 +3,7 @@
 from urllib.parse import urlunparse
 
 from django.test import TestCase
+from django.urls import reverse
 from rest_framework.test import APIClient
 
 from order.forms import TaskForm
@@ -24,7 +25,7 @@ class TaskTestCase(TestCase, TestDbSetUp):
     def test_get_tasks_list(self):
         """Get tasks list test case."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/tasks/')
+        path = reverse('order:tasks')
         response = self.api_client.get(path)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'task/list-tasks.html')
@@ -33,7 +34,7 @@ class TaskTestCase(TestCase, TestDbSetUp):
     def test_get_task(self):
         """Get task test case."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/task/1/')
+        path = reverse('order:task_detail', kwargs={'id': self.task.id})
         response = self.api_client.get(path)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'task/task-detail.html')
@@ -42,7 +43,7 @@ class TaskTestCase(TestCase, TestDbSetUp):
     def test_add_task(self):
         """Check add task template."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/task/add/{}/'.format(self.order.id))
+        path = reverse('order:task_add', kwargs={'order_id': self.order.id})
         response = self.api_client.get(
             path
         )
@@ -55,7 +56,8 @@ class TaskTestCase(TestCase, TestDbSetUp):
     def test_delete_task(self):
         """Delete task test case."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/task/delete/1/')
-        response = self.api_client.get(path)
-        self.assertEqual(response.status_code, 200)
+        path = reverse('order:task_delete')
+        data = {'id': self.task.id}
+        response = self.api_client.post(path=path, data=data)
+        self.assertEqual(response.status_code, 302)
         self.api_client.logout()

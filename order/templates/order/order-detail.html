@@ -46,6 +46,12 @@
                         <td>Order Instructions:</td>
                         <td>{{ order.instructions }}</td>
                 </tr>
+                {% if order.product %}
+                <tr>
+                                <td>Order Product:</td>
+                                <td>{{ order.product }}</td>
+                </tr>
+                {% endif %}
         </table>
         <a href="{% url 'order:task_add' order.id %}"> <Button> Add Task </Button></a>
 

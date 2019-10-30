@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'client.apps.ClientConfig',
     'order.apps.OrderConfig',
     'employee.apps.EmployeeConfig',
+    'product.apps.ProductConfig',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,6 @@ REST_FRAMEWORK = {
 }
 
 NOSE_ARGS = ['--nocapture', '--nologcapture']
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

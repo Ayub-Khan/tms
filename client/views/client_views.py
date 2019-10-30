@@ -18,11 +18,10 @@ class ClientListView(LoginRequiredMixin, View):
     def get(self, request):
         """Render client list tempalte.."""
         clients = Client.objects.all()
-        template = loader.get_template('client/list-clients.html')
         context = {
             'clients': clients,
         }
-        return HttpResponse(template.render(context, request))
+        return render(request, 'client/list-clients.html', context)
 
 
 client_list_view = ClientListView.as_view()
@@ -33,7 +32,6 @@ class ClientDetailView(LoginRequiredMixin, View):
 
     def get(self, request, pk, format=None):
         """Get client details by id ."""
-        template = loader.get_template('client/client-detail.html')
         client = get_object_or_404(Client, id=pk)
         measurements, measurements_exist = get_measurements(pk, client)
         context = {
@@ -42,7 +40,7 @@ class ClientDetailView(LoginRequiredMixin, View):
             'measurements_exist': measurements_exist,
             'is_male': client.gender == 'M',
         }
-        return HttpResponse(template.render(context, request))
+        return render(request, 'client/client-detail.html', context)
 
 
 client_detail_view = ClientDetailView.as_view()
@@ -51,8 +49,9 @@ client_detail_view = ClientDetailView.as_view()
 class ClientDeleteView(LoginRequiredMixin, View):
     """Class based view for displaying client detail."""
 
-    def get(self, request, pk, format=None):
+    def post(self, request):
         """Delete client by id ."""
+        pk = request.POST.get('id')
         client_to_delete = get_object_or_404(Client, id=pk)
         client_to_delete.delete()
         return redirect('client:clients')

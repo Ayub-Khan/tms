@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from django.test import TestCase
+from django.urls import reverse
 from rest_framework.test import APIClient
 
 from client.forms import ClientForm, MaleMeasurementsForm
@@ -23,78 +24,64 @@ class ClientTestCase(TestCase, TestDbSetUp):
 
     def test_login(self):
         """Login test case."""
-        path = self.get_url_for_test_against_endpoint('/accounts/login/')
+        path = reverse('login')
         response = self.api_client.post(path, {'username': self.username, 'password': self.password})
-        # should be logged in now
         self.assertEqual(response.status_code, 302)
 
     def test_list_clients(self):
         """ Check list of clients."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/clients/')
+        path = reverse('client:clients')
         response = self.api_client.get(
             path
         )
-        # check template used
         self.assertTemplateUsed(response, 'client/list-clients.html')
-        # check response code returned
         self.assertEqual(response.status_code, 200)
         self.api_client.logout()
 
     def test_add_client(self):
         """Check add client template."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/clients/add/')
+        path = reverse('client:client_add')
         response = self.api_client.get(
             path
         )
         form = response.context['form']
-        # check template used
         self.assertTemplateUsed(response, 'client/add-client.html')
-        # check response code returned
         self.assertEqual(response.status_code, 200)
-        # check form used in template
         self.assertIsInstance(form, ClientForm)
         self.api_client.logout()
 
     def test_details_client(self):
         """Detail of client and measurements."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/clients/detail/{}/'.format(self.client.id))
+        path = reverse('client:client_detail', kwargs={'pk': self.client.id})
         response = self.api_client.get(
             path
         )
-        # check template used
         self.assertTemplateUsed(response, 'client/client-detail.html')
-        # check response code returned
         self.assertEqual(response.status_code, 200)
         self.api_client.logout()
 
     def test_add_measurement(self):
         """Get add view of measurement."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/clients/measurements/add/{}/'.format(self.client.id))
+        path = reverse('client:measurment_add', kwargs={'client_id': self.client.id})
         response = self.api_client.get(
             path
         )
         form = response.context['form']
-        # check template used
         self.assertTemplateUsed(response, 'client/add-measurements.html')
-        # check response code returned
         self.assertEqual(response.status_code, 200)
-        # check form used in template
         self.assertIsInstance(form(), MaleMeasurementsForm)
         self.api_client.logout()
 
     def test_delete_clients(self):
         """Delete client."""
         self.api_client.login(username=self.username, password=self.password)
-        path = self.get_url_for_test_against_endpoint('/clients/delete/{}/'.format(self.client.id))
-        response = self.api_client.get(
-            path
-        )
-        # check response code returned
+        path = reverse('client:client_delete')
+        data = {'id': self.client.id}
+        response = self.api_client.post(path, data)
         self.assertEqual(response.status_code, 302)
-        # check response HTML content
         self.assertEqual(Client.objects.count(), 0)
         self.api_client.logout()

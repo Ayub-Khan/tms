@@ -18,7 +18,7 @@ class OrderForm(forms.ModelForm):
         """Specify fields to include."""
 
         model = Order
-        exclude = ('product_id', 'date_recieved', 'client_id')
+        exclude = ('date_recieved', 'client')
 
     def clean_delivery_date(self):
         """Check if date is valid."""
@@ -39,7 +39,7 @@ class TaskForm(forms.ModelForm):
         """Specify fields to include."""
 
         model = Task
-        exclude = ('order_id',)
+        exclude = ('order',)
 
     def clean_deadline(self):
         """Check if date is valid."""

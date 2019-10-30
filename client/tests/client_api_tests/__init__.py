@@ -8,6 +8,7 @@ import json
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase
+from django.urls import reverse
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
@@ -30,7 +31,7 @@ class WrapperTestClass:
         def test_get_login_response(self):
             """Test login."""
             api_client = self.get_authenticated_api_client()
-            path = self.get_url_for_test_against_endpoint('/api/login')
+            path = reverse('tailor_management_system:login_api')
             response = api_client.post(
                 path=path,
                 data=json.dumps({'username': self.username, 'password': self.password}),
@@ -46,7 +47,7 @@ class WrapperTestClass:
         def test_get_clients(self):
             """Test get client api."""
             api_client = self.get_authenticated_api_client()
-            path = self.get_url_for_test_against_endpoint('/clients/api/')
+            path = reverse('client:clients_api')
             response = api_client.get(
                 path
             )
@@ -56,7 +57,7 @@ class WrapperTestClass:
         def test_get_client_by_id(self):
             """Test get client details by id api."""
             api_client = self.get_authenticated_api_client()
-            path = self.get_url_for_test_against_endpoint('clients/api/detail/1/')
+            path = reverse('client:client_detail_api', kwargs={'pk': self.client.id})
             response = api_client.get(
                 path
             )
@@ -66,7 +67,7 @@ class WrapperTestClass:
         def test_update_client_by_id(self):
             """Test update client by id api."""
             api_client = self.get_authenticated_api_client()
-            path = self.get_url_for_test_against_endpoint('clients/api/update/1/')
+            path = reverse('client:client_update_api', kwargs={'pk': self.client.id})
             data = {
                 'name': 'Jon Snow',
                 'age': 18,
@@ -85,7 +86,7 @@ class WrapperTestClass:
         def test_add_client(self):
             """Add client by id api."""
             api_client = self.get_authenticated_api_client()
-            path = self.get_url_for_test_against_endpoint('clients/api/add/')
+            path = reverse('client:client_add_api')
             data = {
                 'name': 'Jon Snow',
                 'age': 18,
@@ -104,7 +105,7 @@ class WrapperTestClass:
         def test_delete_client_by_id(self):
             """Delete client by id api."""
             api_client = self.get_authenticated_api_client()
-            path = self.get_url_for_test_against_endpoint('clients/api/delete/{}/'.format(str(self.client.id)))
+            path = reverse('client:client_delete_api', kwargs={'pk': self.client.id})
             api_client.delete(
                 path=path
             )
