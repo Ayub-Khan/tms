@@ -1,0 +1,15 @@
+{% load clean_title %}
+<title> {% clean_title title %}</title>
+<h1> {% clean_title title %} </h1>
+
+<a href="{% url 'client:client_add' %}"> <Button> Add Client </Button></a>
+</br></br>
+<a href="{% url 'client:clients' %}"> <Button> View Clients </Button></a>
+</br></br>
+<a href="{% url 'order:orders' %}"> <Button> View Orders </Button></a>
+</br></br>
+<a href="{% url 'employee:employees' %}"> <Button> View Employees </Button></a>
+</br></br>
+<a href="{% url 'product:products' %}"> <Button> View Products </Button></a>
+</br></br>
+<a href="{% url 'order:tasks' %}"> <Button> View Tasks </Button></a>
