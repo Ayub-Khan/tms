@@ -22,14 +22,14 @@ class MeasurementsAddView(LoginRequiredMixin, View):
             obj.save()
             return redirect('client:client_detail', pk=client.id)
         else:
-            return render(request, 'client/add-measurements.html', {'form': form})
+            return render(request, 'client/add-measurements.html', {'form': form, 'func': 'Add'})
 
     def _get_add_measurements(self, request, form, client):
         """Add measurement's get function to avoid duplication."""
         return render(
             request,
             'client/add-measurements.html',
-            {'form': form, 'client_name': client.name, 'func': 'Add'}
+            {'form': form, 'client': client, 'func': 'Add'}
         )
 
     def get(self, request, client_id):
@@ -72,7 +72,7 @@ class MeasurementsUpdateView(LoginRequiredMixin, View):
         return render(
             request,
             'client/add-measurements.html',
-            {'form': form, 'client_name': client.name, 'func': 'Update'}
+            {'form': form, 'client': client, 'func': 'Update'}
         )
 
     def get(self, request, client_id):

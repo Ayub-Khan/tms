@@ -1,44 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
 {% load clean_title %}
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title> {% clean_title title %}</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</head>
-
-<body>
-    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
-    <a href="{% url 'tailor_management_system:dashboard' %}"> <Button> Home Page </Button></a>
-    <a href="{% url 'client:client_add' %}"> <Button> Add Client </Button></a>
-    <h2>Clients</h2>
-    {% for client in clients %}
-    <ul>
-        <li>
-            <div>
-                <a href="{% url 'client:client_detail' client.id%}">{{ client.name }}</a></br></br>
-                <a href="{% url 'client:client_update' client.id%}"><Button> Update </Button></a></br></br>
-                <a href="{% url 'order:order_add' client.id%}"><Button> Add Order </Button></a></br></br>
-                <a href="#" id="{{ client.id }}"><Button> Delete </Button></a>
-                </br></br>
+{% block content %}
+<!-- begin:: Content -->
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                </span>
             </div>
-        </li>
-    </ul>
-    <script>
-        $(document).ready(function () {
-            $('#{{ client.id }}').click(function () {
-                var url = "{% url 'client:client_delete' %}"
-                var id = "{{ client.id }}"
-                var intId = parseInt(id)
-                var data = { id: intId, csrfmiddlewaretoken: '{{ csrf_token }}', contentType: 'application/json' }
-                $.post(url, data, function (data, status) {
-                    console.log(`${data} and status is ${status}`)
-                    location.reload(true)
-                })
-            })
-        })
-    </script>
-    {% endfor %}
-</body>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        &nbsp;
+                        <a href="{% url 'client:client_add' %}" class="btn btn-brand btn-elevate btn-icon-sm">
+                            <i class="la la-plus"></i>
+                            New Client
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</html>
+        <div class="kt-portlet__body kt-portlet__body--fit text-center">
+
+            <!--begin: Datatable -->
+            <table class="table table-bordered table-hover table-checkable" id="html_table">
+                <thead>
+                    <tr>
+                        <th title="Field #1">Name</th>
+                        <th title="Field #2">Phone</th>
+                        <th title="Field #3">Email</th>
+                        <th title="Field #4">Gender</th>
+                        <th title="Field #5">Age</th>
+                        <th title="Field #6">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for client in clients %}
+                    <tr>
+                        <td>{{ client.name}}</td>
+                        <td>{{ client.phone_number }}</td>
+                        <td>{{ client.email}}</td>
+                        <td>{{ client.gender }}</td>
+                        <td>{{ client.age }}</td>
+                        <td data-field="Field #6" data-autohide-disabled="false" class="kt-datatable__cell"><span
+                                style="overflow: visible; position: relative; width: 110px;">
+                                <a href="{% url 'client:client_detail' client.id %}" title="View" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                    <i class="la la-file-text"></i>
+                                </a>
+                                <a href="{% url 'client:client_update' client.id %}" title="Edit" class="btn btn-sm btn-clean btn-icon btn-icon-md" >
+                                    <i class="la la-edit"></i>
+                                </a>
+                                <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md delete-element-class" id="{{ client.id }}">
+                                    <i class="la la-trash"></i>
+                                </a>
+                            </span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!--end: Datatable -->
+        </div>
+    </div>
+</div>
+
+<!-- end:: Content -->
+{% endblock %}
+
+{% block page-scripts %}
+<script src="{% static 'js/pages/crud/metronic-datatable/base/html-table.js' %}" type="text/javascript"></script>
+{% endblock %}

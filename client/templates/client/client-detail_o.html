@@ -1,0 +1,269 @@
+{% load clean_title %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> {% clean_title title %}</title>
+</head>
+
+<body>
+    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
+    <a href="{% url 'tailor_management_system:dashboard' %}"> <Button> Home Page </Button></a>
+    <h2>{{ client.name }}'s Details</h2>
+    <table>
+        <tr>
+            <td align="right">
+                <p><b>Age: </b></p>
+            </td>
+            <td>
+                <p>{{ client.age }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>Gender: </b></p>
+            </td>
+            <td>
+                <p>{{ client.gender }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>Phone: </b></p>
+            </td>
+            <td>
+                <p>{{ client.phone_number }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>Email: </b></p>
+            </td>
+            <td>
+                <p>{{ client.email }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>Address: </b></p>
+            </td>
+            <td>
+                <p>{{ client.address }}</p>
+            </td>
+        </tr>
+    </table>
+
+    <a href="{% url 'client:client_update' client.id %}"> <Button>Update</Button></a>
+    <a href="{% url 'order:order_add' client.id %}"> <Button>Add Order</Button></a>
+
+    {% if measurements_exist %}
+    <h2>{{ client.name }}'s Measurements</h2>
+    <table>
+        <tr>
+            <td align="right">
+                <p><b>shoulder: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.shoulder }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>armscye: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.armscye }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>chest: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.chest }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>bust: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.bust }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>waist: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.waist }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>arm_length: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.arm_length }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>hips: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.hips }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>ankle: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.ankle }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>neck: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.neck }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>back_width: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.back_width }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>inseam: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.inseam }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>wrist: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.wrist }}</p>
+            </td>
+        </tr>
+        {% if is_male %}
+        <tr>
+            <td align="right">
+                <p><b>crutch_depth: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.crutch_depth }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>waist_to_knee: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.waist_to_knee }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>knee_line: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.knee_line }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <p><b>biceps: </b></p>
+            </td>
+            <td>
+                <p>{{ measurements.biceps }}</p>
+            </td>
+        </tr>
+    </table>
+    {% endif %}
+    {% if not is_male %}
+    <tr>
+        <td align="right">
+            <p><b>front_shoulder_to_waist: </b></p>
+        </td>
+        <td>
+            <p>{{ measurements.front_sh_to_waist }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <p><b>crutch_depth: </b></p>
+        </td>
+        <td>
+            <p>{{ measurements.crutch_depth }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <p><b>waist_to_knee: </b></p>
+        </td>
+        <td>
+            <p>{{ measurements.waist_to_knee }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <p><b>waist_to_hip: </b></p>
+        </td>
+        <td>
+            <p>{{ measurements.waist_to_hip }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <p><b>top_arm: </b></p>
+        </td>
+        <td>
+            <p>{{ measurements.top_arm }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <p><b>knee_line: </b></p>
+        </td>
+        <td>
+            <p>{{ measurements.knee_line }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <p><b>body_rise: </b></p>
+        </td>
+        <td>
+            <p>{{ measurements.body_rise }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <p><b>waist_to_floor: </b></p>
+        </td>
+        <td>
+            <p>{{ measurements.waist_to_floor }}</p>
+        </td>
+    </tr>
+    </table>
+    {% endif %}
+    <!-- <form action="{{ base_url }}/clients/measurements/update/{{ client.id }}/" style="display:inline">
+        <input type="submit" value="Update Measurements" />
+    </form> -->
+    <a href="{% url 'client:measurment_update' client.id %}"> <Button>Update</Button></a>
+    {% else %}
+    <a href="{% url 'client:measurment_add' client.id %}"> <Button>Add Measurements</Button></a>
+    {% endif %}
+</body>
+
+</html>

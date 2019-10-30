@@ -10,6 +10,7 @@ from rest_framework.views import View
 from client.forms import ClientForm
 from client.models import Client
 from client.utils import get_measurements
+from order.models import Order
 
 
 class ClientListView(LoginRequiredMixin, View):
@@ -33,12 +34,14 @@ class ClientDetailView(LoginRequiredMixin, View):
     def get(self, request, pk, format=None):
         """Get client details by id ."""
         client = get_object_or_404(Client, id=pk)
+        orders = Order.objects.filter(client=client)
         measurements, measurements_exist = get_measurements(pk, client)
         context = {
             'client': client,
             'measurements': measurements,
             'measurements_exist': measurements_exist,
             'is_male': client.gender == 'M',
+            'orders': orders
         }
         return render(request, 'client/client-detail.html', context)
 
@@ -76,7 +79,7 @@ class ClientAddView(LoginRequiredMixin, View):
             new_client = form.save()
             return redirect('client:measurment_add', client_id=new_client.id)
         else:
-            return render(request, 'client/add-client.html', {'form': form})
+            return render(request, 'client/add-client.html', {'form': form, 'func': 'Add'})
 
 
 client_add_view = ClientAddView.as_view()
@@ -91,7 +94,8 @@ class ClientUpdateView(LoginRequiredMixin, View):
         form = ClientForm(instance=client)
         return render(request, 'client/add-client.html',
                       {'form': form,
-                       'func': 'Update'})
+                       'func': 'Update',
+                       'client': client})
 
     def post(self, request, pk):
         """Update client by id ."""
@@ -99,9 +103,9 @@ class ClientUpdateView(LoginRequiredMixin, View):
         form = ClientForm(request.POST, instance=client)
         if form.is_valid():
             form.save()
-            redirect('client:clients')
+            return redirect('client:clients')
         else:
-            return render(request, 'client/add-client.html', {'form': form})
+            return render(request, 'client/add-client.html', {'form': form, 'client': client})
 
 
 client_update_view = ClientUpdateView.as_view()
