@@ -1,6 +1,6 @@
-
-<title> {{ title }}</title>
-<h1> {{ title }}</h1>
+{% load clean_title %}
+<title> {% clean_title title %}</title>
+<h1> {% clean_title title %} </h1>
 
 <a href="{% url 'client:client_add' %}"> <Button> Add Client </Button></a>
 </br></br>
