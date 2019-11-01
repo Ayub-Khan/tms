@@ -134,7 +134,7 @@ STATIC_URL = '/static/'
 ALLOWED_HOSTS = ['*']
 BASE_URL = 'http://127.0.0.1:8000'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = BASE_URL
+LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/login/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 REST_FRAMEWORK = {
