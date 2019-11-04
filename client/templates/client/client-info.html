@@ -1,0 +1,50 @@
+<div class="row text-center mt-3">
+    <div class="col-sm-12">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td align="right">
+                        <p><b>Age: </b></p>
+                    </td>
+                    <td>
+                        <p>{{ client.age }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <p><b>Gender: </b></p>
+                    </td>
+                    <td>
+                        <p>{{ client.gender }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <p><b>Phone: </b></p>
+                    </td>
+                    <td>
+                        <p>{{ client.phone_number }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <p><b>Email: </b></p>
+                    </td>
+                    <td>
+                        <p>{{ client.email }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <p><b>Address: </b></p>
+                    </td>
+                    <td>
+                        <p>{{ client.address }}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="{% url 'client:client_update' client.id %}" class="text-center btn-outline-primary"> <Button
+                class="btn btn-primary">Update</Button></a>
+    </div>
+</div>

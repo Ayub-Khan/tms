@@ -20,6 +20,21 @@
         }
     };
 </script>
+<script>
+    $(document).ready(function () {
+        $('.delete-element-class').click(function () {
+            var url = "{% url 'client:client_delete' %}"
+            var id = $(this).attr("id")
+            console.log("This is the id: ${id}")
+            var intId = parseInt(id)
+            var data = { id: intId, csrfmiddlewaretoken: '{{ csrf_token }}', contentType: 'application/json' }
+            $.post(url, data, function (data, status) {
+                location.reload(true)
+            })
+        })
+    })
+</script>
+{% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> {% endcomment %}
 
 <!-- end::Global Config -->
 
