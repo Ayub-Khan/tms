@@ -1,21 +1,87 @@
 """Utility class for frequently needed functions."""
 
-import os
+import random
+import string
 from datetime import datetime, timedelta
-from urllib.parse import urlunparse
 
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
-from rest_framework.test import APIClient
 
 from client.models import Client, MaleMeasurements
 from employee.models import Employee
 from order.models import Order, Task
 from product.models import Product, ProductImages
+from tms.constants import (DUMMY_ADDRESS_MARKER, DUMMY_EMAIL_MARKER,
+                           DUMMY_ORDER_MARKER, DUMMY_TASK_MARKER)
 
 
-class TestDbSetUp:
+def get_future_date(days_to_add=5):
+    """Return date in future."""
+    return datetime.today() + timedelta(days=days_to_add)
+
+
+class RandomDataGenerator:
+    """Functions for creating random strings."""
+
+    def get_random_alpha_string(self, length=5):
+        """Generate a random alpha string."""
+        random_string = ''.join(random.choices(string.ascii_letters + ' ', k=length))
+        return random_string
+
+    def get_random_address(self, length=5):
+        """Generate a random alpha string."""
+        random_string = ''.join(random.choices(string.ascii_letters, k=length))
+        return random_string
+
+    def get_random_numeric_string(self, length=13):
+        """Generate a random numeric string."""
+        random_string = ''.join(random.choices(string.digits, k=length))
+        return random_string
+
+    def get_n_unique_names(self, n):
+        """List of space separated title case strings."""
+        i = 0
+        name_set = []
+        while True and i < n:
+            name = self.get_random_alpha_string().title() + ' ' + self.get_random_alpha_string().title()
+            if name not in name_set:
+                name_set.append(name)
+                i += 1
+        return name_set
+
+    def get_n_unique_emails(self, n, existing_emails):
+        """List of emails."""
+        i = 0
+        email_set = []
+        while True and i < n:
+            email = self.get_random_alpha_string() + DUMMY_EMAIL_MARKER
+            if (email not in email_set) and (email not in existing_emails):
+                email_set.append(email)
+                i += 1
+        return email_set
+
+    def get_n_unique_numbers(self, n, existing_phones):
+        """List of phone numbers."""
+        phone_set = []
+        i = 0
+        while True and i < n:
+            phone = '+' + self.get_random_numeric_string()
+            if (phone not in phone_set) and (phone not in existing_phones):
+                phone_set.append(phone)
+                i += 1
+
+        return phone_set
+
+    def get_random_number(self, upper_limit, lower_limit=0):
+        """Generate a random number."""
+        if upper_limit - lower_limit == 0:
+            return 1
+        else:
+            return random.randrange(lower_limit, upper_limit, 1)
+
+
+class TestDbSetUp(RandomDataGenerator):
     """Functions needed to set Database for tests."""
 
     def create_user(self):
@@ -27,15 +93,15 @@ class TestDbSetUp:
         user.save()
         return user, username, password
 
-    def create_client(self):
+    def create_client(self, email_post_fix='@test.com'):
         """Create a Client."""
         client = Client.objects.create(**{
             'name': 'Jon Snow',
             'age': 18,
             'gender': 'M',
             'address': 'night watch wall',
-            'phone_number': '+9290078601',
-            'email': 'jon@nightwatch.com'
+            'phone_number': '+9290078602',
+            'email': '{}{}'.format(self.get_random_alpha_string(), email_post_fix)
         })
         client.save()
         return client
@@ -50,7 +116,7 @@ class TestDbSetUp:
             'payment_amount': 1500,
             'advance_payment_amount': 500,
             'delivery_date': delivery_date.strftime('%Y-%m-%d'),
-            'order': 'Shalwar Kameez',
+            'order': DUMMY_ORDER_MARKER,
             'instructions': 'Ban instead of collar.'
         })
         order.save()
@@ -61,8 +127,8 @@ class TestDbSetUp:
         employee = Employee.objects.create(**{
             'name': 'Jon Snow',
             'gender': 'M',
-            'address': 'night watch wall',
-            'phone_number': '+9290078601',
+            'address': DUMMY_ADDRESS_MARKER,
+            'phone_number': '+' + self.get_random_numeric_string(),
         })
         employee.save()
         return employee
@@ -100,7 +166,7 @@ class TestDbSetUp:
             'order': order,
             'employee': employee,
             'status': 'I',
-            'description': 'Stitch the shirt.',
+            'description': DUMMY_TASK_MARKER,
             'deadline': delivery_date.strftime('%Y-%m-%d'),
         })
         task.save()

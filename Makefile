@@ -8,6 +8,7 @@ for line in sys.stdin:
 		print("%-20s %s" % (target, help))
 endef
 export PRINT_HELP_PYSCRIPT
+# TOTAL=5
 
 help: ## all available targets
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
@@ -50,3 +51,22 @@ requirements: ## installs all dependencies
 
 run: ## run server
 	python manage.py runserver
+
+create-dummy-data: ## create dummy entries in models.
+ifdef $(TOTAL)
+	python manage.py create_dummy_clients --total $(TOTAL)
+	python manage.py create_dummy_employees --total $(TOTAL)
+	python manage.py create_dummy_orders --total $(TOTAL)
+	python manage.py create_dummy_tasks --total $(TOTAL)
+else
+	python manage.py create_dummy_clients
+	python manage.py create_dummy_employees
+	python manage.py create_dummy_orders
+	python manage.py create_dummy_tasks
+endif
+
+delete-dummy-data: ## deletes dummy data
+	python manage.py delete_dummy_tasks
+	python manage.py delete_dummy_orders
+	python manage.py delete_dummy_clients
+	python manage.py delete_dummy_employees
