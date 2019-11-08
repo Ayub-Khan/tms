@@ -28,13 +28,20 @@
 
                 <!-- Begin Images Column -->
                 <div class="col-lg-6 text-center">
-                    {% for k,v in product_images_dict.items %}
-                    {% if v %}
-                    <div class="text-center">
-                        <img class="h-10" src="{{ v.url }}">
-                    </div>
-                    {% endif %}
-                    {% endfor %}
+                    <table class="table">
+                        {% for k,v in product_images_dict.items %}
+                        {% if v %}
+                        <tr>
+                            <td>
+                                <div class="text-center">
+                                    <img class="img-fluid img-thumbnail" style="height:10%"
+                                        style="object-fit:cover" src="{{ v.url }}">
+                                </div>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </table>
                 </div>
                 <!-- End Images Column -->
             </div>

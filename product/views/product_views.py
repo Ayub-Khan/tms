@@ -37,6 +37,7 @@ class ProductDetailView(LoginRequiredMixin, View):
         product_images = get_object_or_404(ProductImages, product=product)
         product_images_dict = model_to_dict(product_images)
         product_images_dict.pop('id')
+        product_images_dict.pop('product')
         context = {
             'product': product,
             'product_images': ProductImages.objects.filter(product=product),
