@@ -40,7 +40,7 @@ class ProductImagesAddView(LoginRequiredMixin, View):
         product = get_object_or_404(Product, id=product_id)
         form = ProductImagesForm()
         return render(request, 'product_images/add-product_images.html',
-                      {'form': form, 'func': 'Add'})
+                      {'form': form, 'func': 'Add', 'product': product})
 
     def post(self, request, product_id):
         """Save product image and redirect to product list."""
@@ -52,7 +52,11 @@ class ProductImagesAddView(LoginRequiredMixin, View):
             new_product_images.save()
             return redirect('product:product_detail', id=product_id)
         else:
-            return render(request, 'product_images/add-product_images.html', {'form': form, 'func': 'Add'})
+            return render(
+                request,
+                'product_images/add-product_images.html',
+                {'form': form, 'func': 'Add', 'product': product}
+            )
 
 
 product_images_add_view = ProductImagesAddView.as_view()

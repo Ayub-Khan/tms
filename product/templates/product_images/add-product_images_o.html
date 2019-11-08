@@ -1,0 +1,24 @@
+{% load clean_title %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> {% clean_title title %}</title>
+</head>
+<h2> Add Product Images</h2>
+<body>
+    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
+    <a href="{% url 'product:products' %}"> <Button> List Products </Button></a>
+    <h2>Upload Images</h2>
+    {% block content %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_p }}
+        </table>
+        <input type="submit" value="{{ func }}">
+    </form>
+    {% endblock %}
+</body>
+
+</html>
