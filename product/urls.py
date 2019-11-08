@@ -5,7 +5,6 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from product.views.product_images_views import (product_images_add_view,
-                                                product_images_list_view,
                                                 product_images_update_view)
 from product.views.product_views import (product_add_view, product_delete_view,
                                          product_detail_view,
@@ -21,7 +20,6 @@ urlpatterns = [
     path('product/update/<int:id>/', product_update_view, name='product_update'),
     path('product/delete/', product_delete_view, name='product_delete'),
 
-    path('product_images/<int:product_id>/', product_images_list_view, name='product_images'),
     path('product_images/add/<int:product_id>/', product_images_add_view, name='product_images_add'),
     path('product_images/update/<int:product_id>/', product_images_update_view, name='product_images_update'),
 ]
