@@ -35,7 +35,7 @@
                     <div class="text-center">
                         {% for task in tasks%}
                         <a class="h5 text-primary"
-                            href="{% url 'task:task_detail' task.id%}"></br>Task#{{ task.id }}:
+                            href="{% url 'order:task_detail' task.id%}"></br>Task#{{ task.id }}:
                             {{ task.description }}</a></br></br>
                         {% endfor %}
                         {% endif %}
