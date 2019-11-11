@@ -4,7 +4,7 @@
             <tbody>
                 <tr>
                     <td align=right><b>Client</b></td>
-                    <td align=left>{{ order.client.name }}</td>
+                    <td align=left><a href="{% url 'client:client_detail' order.client.id %}">{{ order.client.name }}</a></td>
                 </tr>
                 <tr>
                     <td align=right><b>Order Status</b></td>

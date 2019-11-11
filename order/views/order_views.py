@@ -9,7 +9,7 @@ from rest_framework.views import View
 
 from client.models import Client
 from order.forms import OrderForm
-from order.models import Order
+from order.models import Order, Task
 
 
 class OrderListView(LoginRequiredMixin, View):
@@ -33,8 +33,10 @@ class OrderDetailView(LoginRequiredMixin, View):
     def get(self, request, id):
         """Render order detail tempalte.."""
         order = Order.objects.get(id=id)
+        tasks = Task.objects.filter(order=order)
         context = {
             'order': order,
+            'tasks': tasks
         }
         return render(request, 'order/order-detail.html', context)
 

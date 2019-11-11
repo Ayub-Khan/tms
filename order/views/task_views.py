@@ -49,21 +49,22 @@ class TaskAddView(LoginRequiredMixin, View):
 
     def get(self, request, order_id):
         """Return add new task form."""
+        order = get_object_or_404(Order, id=order_id)
         form = TaskForm()
         return render(request, 'task/add-task.html',
-                      {'form': form, 'func': 'Add'})
+                      {'form': form, 'func': 'Add', 'order': order})
 
     def post(self, request, order_id):
         """Save task and redirect to task list."""
         form = TaskForm(request.POST)
+        order = get_object_or_404(Order, id=order_id)
         if form.is_valid():
             new_task = form.save(commit=False)
-            order = get_object_or_404(Order, id=order_id)
             new_task.order = order
             new_task.save()
             return redirect('order:tasks')
         else:
-            return render(request, 'task/add-task.html', {'form': form, 'func': 'Add'})
+            return render(request, 'task/add-task.html', {'form': form, 'func': 'Add', 'order': order})
 
 
 task_add_view = TaskAddView.as_view()
@@ -75,9 +76,9 @@ class TaskUpdateView(LoginRequiredMixin, View):
     def get(self, request, id):
         """Return add new task form."""
         task = get_object_or_404(Task, id=id)
-        form = OrderForm(instance=task)
+        form = TaskForm(instance=task)
         return render(request, 'task/add-task.html',
-                      {'form': form, 'func': 'Update'})
+                      {'form': form, 'func': 'Update', 'task': task})
 
     def post(self, request, id):
         """Save order and redirect to task list."""
@@ -90,7 +91,7 @@ class TaskUpdateView(LoginRequiredMixin, View):
             new_task.save()
             return redirect('order:tasks')
         else:
-            return render(request, 'order/add-task.html', {'form': form, 'func': 'Update'})
+            return render(request, 'order/add-task.html', {'form': form, 'func': 'Update', 'task': task})
 
 
 task_update_view = TaskUpdateView.as_view()

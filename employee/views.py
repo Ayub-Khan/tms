@@ -10,6 +10,7 @@ from rest_framework.views import View
 from client.models import Client
 from employee.forms import EmployeeForm
 from employee.models import Employee
+from order.models import Task
 
 
 class EmployeeListView(LoginRequiredMixin, View):
@@ -35,6 +36,7 @@ class EmployeeDetailView(LoginRequiredMixin, View):
         employee = Employee.objects.get(id=id)
         context = {
             'employee': employee,
+            'tasks': Task.objects.filter(employee=employee)
         }
         return render(request, 'employee/employee-detail.html', context)
 
