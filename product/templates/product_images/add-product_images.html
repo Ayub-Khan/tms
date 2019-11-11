@@ -20,18 +20,55 @@
         {% if func == "Add" %}
         <form class="kt-form kt-portlet__body" action="{% url 'product:product_images_add' product.id %}" method="post"
             enctype="multipart/form-data">
-        {% else %}
-        <form class="kt-form kt-portlet__body" action="{% url 'product:product_images_update' product.id %}"
-            method="post" enctype="multipart/form-data">
-            {% endif %}
-            {% csrf_token %}
-            {{ form|crispy }}
-            <div class="kt-portlet__foot">
-                <div class="kt-form__actions">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+            {% else %}
+            <form class="kt-form kt-portlet__body" action="{% url 'product:product_images_update' product.id %}"
+                method="post" enctype="multipart/form-data">
+                {% endif %}
+                {% csrf_token %}
+                <div id="div_id_image1" class="form-group"> <label for="id_image1" class=" requiredField">
+                        Image1<span class="asteriskField">*</span> </label>
+                    <div class="custom-file ">
+                        <input type="file" name="image1" accept="image/*"
+                            class="clearablefileinput form-control custom-file-input" id="id_image1"> <label
+                            class="custom-file-label" for="id_image1">Choose file</label> </div>
                 </div>
-            </div>
-        </form>
+                <div id="div_id_image2" class="form-group"> <label for="id_image2" class="">
+                        Image2
+                    </label>
+                    <div class="custom-file ">
+                        <input type="file" name="image2" accept="image/*"
+                            class="clearablefileinput form-control custom-file-input" id="id_image2"> <label
+                            class="custom-file-label" for="id_image2">Choose file</label> </div>
+                </div>
+                <div id="div_id_image3" class="form-group"> <label for="id_image3" class="">
+                        Image3
+                    </label>
+                    <div class="custom-file ">
+                        <input type="file" name="image3" accept="image/*"
+                            class="clearablefileinput form-control custom-file-input" id="id_image3"> <label
+                            class="custom-file-label" for="id_image3">Choose file</label> </div>
+                </div>
+                <div id="div_id_image4" class="form-group"> <label for="id_image4" class="">
+                        Image4
+                    </label>
+                    <div class="custom-file "> <input type="file" name="image4" accept="image/*"
+                            class="clearablefileinput form-control custom-file-input" id="id_image4"> <label
+                            class="custom-file-label" for="id_image4">Choose file</label> </div>
+                </div>
+                <div id="div_id_image5" class="form-group"> <label for="id_image5" class="">
+                        Image5
+                    </label>
+                    <div class="custom-file "> <input type="file" name="image5" accept="image/*"
+                            class="clearablefileinput form-control custom-file-input" id="id_image5"> <label
+                            class="custom-file-label" for="id_image5">Choose file</label> </div>
+                </div>
+
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
 
             <!--end::Form-->
     </div>
