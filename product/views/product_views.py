@@ -34,13 +34,16 @@ class ProductDetailView(LoginRequiredMixin, View):
     def get(self, request, id):
         """Render product detail template.."""
         product = get_object_or_404(Product, id=id)
-        product_images = get_object_or_404(ProductImages, product=product)
-        product_images_dict = model_to_dict(product_images)
-        product_images_dict.pop('id')
-        product_images_dict.pop('product')
+        product_images = ProductImages.objects.filter(product=product).first()
+        if product_images:
+            product_images_dict = model_to_dict(product_images)
+            product_images_dict.pop('id')
+            product_images_dict.pop('product')
+        else:
+            product_images_dict = {}
         context = {
             'product': product,
-            'product_images': ProductImages.objects.filter(product=product),
+            'product_images': product_images,
             'product_images_dict': product_images_dict
         }
         return render(request, 'product/product-detail.html', context)

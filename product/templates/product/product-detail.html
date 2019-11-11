@@ -25,24 +25,11 @@
                     {% endblock %}
                 </div>
                 <!-- End Product Info Column -->
-
+                <div class="col-lg-6">
                 <!-- Begin Images Column -->
-                <div class="col-lg-6 text-center">
-                    <table class="table">
-                        {% for k,v in product_images_dict.items %}
-                        {% if v %}
-                        <tr>
-                            <td>
-                                <div class="text-center">
-                                    <img class="img-fluid img-thumbnail" style="height:10%"
-                                        style="object-fit:cover" src="{{ v.url }}">
-                                </div>
-                            </td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </table>
-                </div>
+                {% block product-image-carsol %}
+                {% include 'product-image-carsol.html' %}
+                {% endblock %}
                 <!-- End Images Column -->
             </div>
 

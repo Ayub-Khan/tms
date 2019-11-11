@@ -20,18 +20,18 @@
         {% if func == "Add" %}
         <form class="kt-form kt-portlet__body" action="{% url 'product:product_images_add' product.id %}" method="post"
             enctype="multipart/form-data">
-            {% else %}
-            <form class="kt-form kt-portlet__body" action="{% url 'product:product_images_update' product.id %}"
-                method="post" enctype="multipart/form-data">
-                {% endif %}
-                {% csrf_token %}
-                {{ form|crispy }}
-                <div class="kt-portlet__foot">
-                    <div class="kt-form__actions">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+        {% else %}
+        <form class="kt-form kt-portlet__body" action="{% url 'product:product_images_update' product.id %}"
+            method="post" enctype="multipart/form-data">
+            {% endif %}
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="kt-portlet__foot">
+                <div class="kt-form__actions">
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-            </form>
+            </div>
+        </form>
 
             <!--end::Form-->
     </div>
