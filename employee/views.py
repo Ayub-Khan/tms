@@ -72,7 +72,7 @@ class EmployeeUpdateView(LoginRequiredMixin, View):
         employee = get_object_or_404(Employee, id=id)
         form = EmployeeForm(instance=employee)
         return render(request, 'employee/add-employee.html',
-                      {'form': form, 'func': 'Update'})
+                      {'form': form, 'func': 'Update', 'employee': employee})
 
     def post(self, request, id):
         """Save employee and redirect to employee list."""
@@ -82,7 +82,7 @@ class EmployeeUpdateView(LoginRequiredMixin, View):
             new_employee = form.save()
             return redirect('employee:employee_detail', id=new_employee.id)
         else:
-            return render(request, 'employee/add-employee.html', {'form': form, 'func': 'Update'})
+            return render(request, 'employee/add-employee.html', {'form': form, 'func': 'Update', 'employee': employee})
 
 
 employee_update_view = EmployeeUpdateView.as_view()
