@@ -1,12 +1,10 @@
 """All the Client APIs."""
 
-from django.conf import settings
-from django.contrib.auth import authenticate
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404, HttpResponse, JsonResponse
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.parsers import JSONParser
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from client.models import Client

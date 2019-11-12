@@ -62,7 +62,13 @@ ROOT_URLCONF = 'tms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates', 'client/templates/client'],
+        'DIRS': [
+            'templates',
+            'client/templates/client',
+            'product/templates/product',
+            'employee/templates/employee',
+            'order/templates/order'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,7 +158,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-   os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

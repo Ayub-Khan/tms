@@ -6,7 +6,6 @@ import ddt
 from django.core.management import call_command
 from django.test import TestCase
 
-from tms import constants
 from tms.utils import TestDbSetUp
 
 
