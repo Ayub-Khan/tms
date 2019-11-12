@@ -8476,7 +8476,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 					last: 'flaticon2-fast-next',
 					more: 'flaticon-more-1',
 				},
-				rowDetail: {expand: 'fa fa-caret-down', collapse: 'fa fa-caret-right'},
+				// rowDetail: {expand: 'fa fa-caret-down', collapse: 'fa fa-caret-right'},
 			},
 		},
 
@@ -8857,7 +8857,7 @@ var defaults = {
 				last: 'flaticon2-fast-next',
 				more: 'flaticon-more-1',
 			},
-			rowDetail: {expand: 'fa fa-caret-down', collapse: 'fa fa-caret-right'},
+			// rowDetail: {expand: 'fa fa-caret-down', collapse: 'fa fa-caret-right'},
 		}
 	}
 };
@@ -8872,7 +8872,7 @@ if (KTUtil.isRTL()) {
 					first: 'flaticon2-fast-next',
 					last: 'flaticon2-fast-back',
 				},
-				rowDetail: {collapse: 'fa fa-caret-down', expand: 'fa fa-caret-right'},
+				// rowDetail: {collapse: 'fa fa-caret-down', expand: 'fa fa-caret-right'},
 			}
 		}
 	}

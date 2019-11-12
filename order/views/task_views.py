@@ -2,7 +2,6 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader
 from rest_framework.views import View
 
 from order.forms import TaskForm
@@ -30,7 +29,6 @@ class TaskDetailView(LoginRequiredMixin, View):
     def get(self, request, id):
         """Render tasks detail tempalte.."""
         task = Task.objects.get(id=id)
-        template = loader.get_template('task/task-detail.html')
         context = {
             'task': task,
         }

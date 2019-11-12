@@ -13,29 +13,47 @@
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
-                    <div class="kt-portlet__head-actions">
-                        &nbsp;
-                        <a href="{% url 'client:client_add' %}" class="btn btn-brand btn-elevate btn-icon-sm">
-                            <i class="la la-plus"></i>
-                            New Client
-                        </a>
-                    </div>
+                    &nbsp;
+                    <a href="{% url 'client:client_add' %}" class="text-center btn-outline-primary"><Button
+                            class="btn btn-primary"><i class="flaticon2-plus"></i>Add New Client</Button></a>
                 </div>
             </div>
         </div>
+        <div class="kt-portlet__body">
 
-        <div class="kt-portlet__body kt-portlet__body--fit text-center">
+            <!--begin: Search Form -->
+            <div class="kt-form kt-form--label-right kt-margin-t-2 kt-margin-b-10">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+                        <div class="row">
+                            <div style="padding-left:6%" class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-input-icon kt-input-icon--left">
+                                    <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                                    <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                        <span><i class="la la-search"></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end: Search Form -->
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
 
             <!--begin: Datatable -->
-            <table class="table table-bordered table-hover table-checkable" id="html_table">
-                <thead>
+            <table class="kt-datatable table-striped" width="100%">
+                <thead class="thead-dark">
                     <tr>
                         <th title="Field #1">Name</th>
                         <th title="Field #2">Phone</th>
-                        <th title="Field #3">Email</th>
                         <th title="Field #4">Gender</th>
+                        <th title="Field #3">Email</th>
                         <th title="Field #5">Age</th>
                         <th title="Field #6">Actions</th>
+                        <th>Hidden</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,26 +61,28 @@
                     <tr>
                         <td>{{ client.name}}</td>
                         <td>{{ client.phone_number }}</td>
-                        <td>{{ client.email}}</td>
                         <td>{{ client.gender }}</td>
+                        <td>{{ client.email}}</td>
                         <td>{{ client.age }}</td>
-                        <td data-field="Field #6" data-autohide-disabled="false" class="kt-datatable__cell"><span
-                                style="overflow: visible; position: relative; width: 110px;">
-                                <a href="{% url 'client:client_detail' client.id %}" title="View" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                    <i class="la la-file-text"></i>
-                                </a>
-                                <a href="{% url 'client:client_update' client.id %}" title="Edit" class="btn btn-sm btn-clean btn-icon btn-icon-md" >
-                                    <i class="la la-edit"></i>
-                                </a>
-                                <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md delete-element-class" id="{{ client.id }}">
-                                    <i class="la la-trash"></i>
-                                </a>
+                        <td data-field="Field #6" data-autohide-disabled="false" class="kt-datatable__cell">
+                            <a href="{% url 'client:client_detail' client.id %}" title="View"
+                                class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                <i class="la la-file-text"></i>
+                            </a>
+                            <a href="{% url 'client:client_update' client.id %}" title="Edit"
+                                class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                <i class="la la-edit"></i>
+                            </a>
+                            <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md delete-element-class"
+                                id="{{ client.id }}">
+                                <i class="la la-trash"></i>
+                            </a>
                             </span></td>
+                        <td>Hidden</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
             <!--end: Datatable -->
         </div>
     </div>

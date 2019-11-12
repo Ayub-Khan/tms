@@ -23117,20 +23117,6 @@ strong {
                 top: 2px;
                 padding: 0;
                 margin: 0 0 0 0; }
-          .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__head .kt-datatable__row > .kt-datatable__cell.kt-datatable__toggle-detail > span,
-          .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__body .kt-datatable__row > .kt-datatable__cell.kt-datatable__toggle-detail > span,
-          .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__foot .kt-datatable__row > .kt-datatable__cell.kt-datatable__toggle-detail > span {
-            width: 12px; }
-          .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__head .kt-datatable__row > .kt-datatable__cell.kt-datatable__toggle-detail > .kt-datatable__toggle-detail,
-          .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__body .kt-datatable__row > .kt-datatable__cell.kt-datatable__toggle-detail > .kt-datatable__toggle-detail,
-          .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__foot .kt-datatable__row > .kt-datatable__cell.kt-datatable__toggle-detail > .kt-datatable__toggle-detail {
-            display: inline-block;
-            text-align: left; }
-            .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__head .kt-datatable__row > .kt-datatable__cell.kt-datatable__toggle-detail > .kt-datatable__toggle-detail > i,
-            .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__body .kt-datatable__row > .kt-datatable__cell.kt-datatable__toggle-detail > .kt-datatable__toggle-detail > i,
-            .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__foot .kt-datatable__row > .kt-datatable__cell.kt-datatable__toggle-detail > .kt-datatable__toggle-detail > i {
-              font-size: 1.4rem;
-              width: 12px; }
           .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__head .kt-datatable__row > .kt-datatable__cell .dropdown,
           .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__body .kt-datatable__row > .kt-datatable__cell .dropdown,
           .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__foot .kt-datatable__row > .kt-datatable__cell .dropdown {
@@ -23384,19 +23370,6 @@ strong {
     .kt-datatable > .kt-datatable__table > .kt-datatable__body .kt-datatable__row > .kt-datatable__cell .kt-checkbox.kt-checkbox--solid > input:checked ~ span,
     .kt-datatable > .kt-datatable__table > .kt-datatable__foot .kt-datatable__row > .kt-datatable__cell .kt-checkbox.kt-checkbox--solid > input:checked ~ span {
       background: #e8ecfa; }
-  .kt-datatable > .kt-datatable__table > .kt-datatable__body .kt-datatable__toggle-detail {
-    vertical-align: middle; }
-    .kt-datatable > .kt-datatable__table > .kt-datatable__body .kt-datatable__toggle-detail i {
-      -webkit-transition: color 0.3s ease;
-      transition: color 0.3s ease;
-      color: #5d78ff; }
-      .kt-datatable > .kt-datatable__table > .kt-datatable__body .kt-datatable__toggle-detail i:before {
-        line-height: 0;
-        vertical-align: middle; }
-    .kt-datatable > .kt-datatable__table > .kt-datatable__body .kt-datatable__toggle-detail:hover i, .kt-datatable > .kt-datatable__table > .kt-datatable__body .kt-datatable__toggle-detail.kt-datatable__toggle-detail--active i {
-      -webkit-transition: color 0.3s ease;
-      transition: color 0.3s ease;
-      color: #5d78ff; }
   .kt-datatable > .kt-datatable__table > .kt-datatable__body .kt-datatable__row-detail .kt-datatable__detail table {
     border-right: 1px solid #f0f3ff;
     border-left: 1px solid #f0f3ff; }
