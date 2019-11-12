@@ -20,6 +20,8 @@ jobs:
 
       - run: make requirements
 
+      - run: export DJANGO_SETTINGS_MODULE=tms.local_settings
+
       - run: make test-quality
 
       - run: make test
