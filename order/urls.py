@@ -2,11 +2,8 @@
 
 from django.urls import path
 
-from order.views.order_views import (order_add_view, order_detail_view,
-                                     order_list_view, order_update_view)
-from order.views.task_views import (task_add_view, task_delete_view,
-                                    task_detail_view, task_list_view,
-                                    task_update_view)
+from order.views.order_views import order_add_view, order_detail_view, order_list_view, order_update_view
+from order.views.task_views import task_add_view, task_delete_view, task_detail_view, task_list_view, task_update_view
 
 app_name = 'order'
 

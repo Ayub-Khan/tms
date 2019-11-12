@@ -6,8 +6,7 @@ from django.core.management import call_command
 from django.test import TestCase
 
 from order.models import Task
-from tms.constants import (DUMMY_EMAIL_MARKER, DUMMY_ORDER_MARKER,
-                           DUMMY_TASK_MARKER)
+from tms.constants import DUMMY_EMAIL_MARKER, DUMMY_ORDER_MARKER, DUMMY_TASK_MARKER
 from tms.utils import TestDbSetUp
 
 

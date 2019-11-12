@@ -12,8 +12,7 @@ from client.models import Client, MaleMeasurements
 from employee.models import Employee
 from order.models import Order, Task
 from product.models import Product, ProductImages
-from tms.constants import (DUMMY_ADDRESS_MARKER, DUMMY_EMAIL_MARKER,
-                           DUMMY_ORDER_MARKER, DUMMY_TASK_MARKER)
+from tms.constants import DUMMY_ADDRESS_MARKER, DUMMY_EMAIL_MARKER, DUMMY_ORDER_MARKER, DUMMY_TASK_MARKER
 
 
 def get_future_date(days_to_add=5):

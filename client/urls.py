@@ -3,11 +3,14 @@
 from django.urls import path
 
 from client.client_apis import client_detail_view_api, client_view
-from client.views.client_views import (client_add_view, client_delete_view,
-                                       client_detail_view, client_list_view,
-                                       client_update_view)
-from client.views.measurement_views import (measurements_add_view,
-                                            measurements_update_view)
+from client.views.client_views import (
+    client_add_view,
+    client_delete_view,
+    client_detail_view,
+    client_list_view,
+    client_update_view
+)
+from client.views.measurement_views import measurements_add_view, measurements_update_view
 
 app_name = 'client'
 

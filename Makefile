@@ -39,7 +39,7 @@ migrations: ## make migrations
 	python manage.py migrate
 
 test: ## run unit tests tp check code funcionality
-	python manage.py test
+	python manage.py test --settings=tms.local_settings
 	
 test-quality: ## run test quality checks
 	isort -rc . --diff

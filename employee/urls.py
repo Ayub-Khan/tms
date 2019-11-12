@@ -2,9 +2,13 @@
 
 from django.urls import path
 
-from employee.views import (employee_add_view, employee_delete_view,
-                            employee_detail_view, employee_list_view,
-                            employee_update_view)
+from employee.views import (
+    employee_add_view,
+    employee_delete_view,
+    employee_detail_view,
+    employee_list_view,
+    employee_update_view
+)
 
 app_name = 'employee'
 
