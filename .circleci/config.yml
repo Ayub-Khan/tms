@@ -4,7 +4,7 @@ jobs:
 
   build:
 
-    working_directory: ~/tms
+    working_directory: ~/TMS
 
     docker:
 
