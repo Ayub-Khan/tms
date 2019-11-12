@@ -2,10 +2,10 @@
 
 from io import StringIO
 
-import ddt
 from django.core.management import call_command
 from django.test import TestCase
 
+import ddt
 from tms.utils import TestDbSetUp
 
 
