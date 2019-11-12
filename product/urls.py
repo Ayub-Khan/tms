@@ -4,7 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from product.views.product_images_views import product_images_add_view, product_images_update_view
+from product.views.product_images_views import (product_images_add_view,
+                                                product_images_update_view)
 from product.views.product_views import (product_add_view, product_delete_view,
                                          product_detail_view,
                                          product_list_view,

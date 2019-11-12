@@ -29,7 +29,7 @@ class RandomDataGenerator:
         random_string = ''.join(random.choices(string.ascii_letters + ' ', k=length))
         return random_string
 
-    def get_random_address(self, length=5):
+    def get_random_address(self, length=10):
         """Generate a random alpha string."""
         random_string = ''.join(random.choices(string.ascii_letters, k=length))
         return random_string

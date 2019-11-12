@@ -23,7 +23,8 @@
                         <th title="Field #2">Order#</th>
                         <th title="Field #4">Assigned To</th>
                         <th title="Field #5">Deadline</th>
-                        <th title="Field #6">Actions</th>
+                        <th title="Field #6">Status</th>
+                        <th title="Field #7">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,9 +32,14 @@
                     <tr>
                         <td>{{ task.id }}</td>
                         <td>{{ task.order.id }}</td>
+                        {% if task.employee %}
                         <td>{{ task.employee.name }}</td>
+                        {% else %}
+                        <td>Unassigned</td>
+                        {% endif %}
                         <td>{{ task.deadline }}</td>
-                        <td data-field="Field #6" data-autohide-disabled="false" class="kt-datatable__cell"><span
+                        <td>{{ task.status }}</td>
+                        <td data-field="Field #7" data-autohide-disabled="false" class="kt-datatable__cell"><span
                                 style="overflow: visible; position: relative; width: 110px;">
                                 <a href="{% url 'order:task_detail' task.id %}" title="View"
                                     class="btn btn-sm btn-clean btn-icon btn-icon-md">

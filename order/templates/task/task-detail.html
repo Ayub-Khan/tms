@@ -25,7 +25,11 @@
                             </tr>
                             <tr>
                                 <td align=right><b>Assigned to:</b></td>
+                                {% if task.employee %}
                                 <td align=left><a href="{% url 'employee:employee_detail' task.employee.id %}">{{ task.employee.name }}</a></td>
+                                {% else %}
+                                <td align=left>Unassigned.</td>
+                                {% endif %}
                             </tr>
                             <tr>
                                 <td align=right><b>Description:</b></td>
@@ -40,26 +44,6 @@
                     <a href="{% url 'order:task_update' task.id %}" class="text-center btn-outline-primary"> <Button
                             class="btn btn-primary">Update</Button></a>
                 </div>
-                <!-- End employee Info Column -->
-                {% comment %}
-                <!-- Begin tasks Column -->
-                <div class="col-lg-6">
-                    </br>
-                    <p class="h3 text-dark text-center">Tasks</p>
-                    </hr>
-                    <hr>
-                    {% if not tasks%}
-                    <p class="h5 text-primary text-center">No tasks exist against this order.</p>
-                    {% else %}
-                    <div class="text-center">
-                        {% for task in tasks%}
-                        <a class="h5 text-primary" href="{% url 'order:task_detail' task.id%}"></br>Task#{{ task.id }}:
-                            {{ task.description }}</a></br></br>
-                        {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
-                <!-- End tasks Column --> {% endcomment %}
             </div>
 
             </br>

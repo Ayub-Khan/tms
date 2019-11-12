@@ -43,6 +43,11 @@
                     <td align=right><b>Order Product</b></td>
                     <td align=left>{{ order.product }}</td>
                 </tr>
+                {% else %}
+                <tr>
+                    <td align=right><b>Order Product</b></td>
+                    <td align=left>Custom</td>
+                </tr>
                 {% endif %}
             </tbody>
         </table>

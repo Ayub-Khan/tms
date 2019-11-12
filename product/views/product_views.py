@@ -1,9 +1,8 @@
 """Product related views."""
 
 from django.conf import settings
-from django.forms.models import model_to_dict
-
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms.models import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader

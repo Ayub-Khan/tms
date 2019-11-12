@@ -24,7 +24,7 @@
                         <th title="Field #4">Payment Amount</th>
                         <th title="Field #5">Delivery Date</th>
                         <th title="Field #6">Recieval Date</th>
-                        <th title="Field #7">Order</th>
+                        <th title="Field #7">Status</th>
                         <th title="Field #8">Actions</th>
                     </tr>
                 </thead>
@@ -36,7 +36,7 @@
                         <td>{{ order.payment_amount }}</td>
                         <td>{{ order.delivery_date }}</td>
                         <td>{{ order.date_recieved }}</td>
-                        <td>{{ order.order }}</td>
+                        <td>{{ order.status }}</td>
                         <td data-field="Field #8" data-autohide-disabled="false" class="kt-datatable__cell"><span
                                 style="overflow: visible; position: relative; width: 110px;">
                                 <a href="{% url 'order:order_detail' order.id %}" title="View" class="btn btn-sm btn-clean btn-icon btn-icon-md">

@@ -2,14 +2,18 @@
 
 import re
 
+from django import forms
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
 
 from client.models import Client, FemaleMeasurements, MaleMeasurements
 
 
-class ClientForm(ModelForm):
+class ClientForm(forms.ModelForm):
     """Client model mapped form."""
+
+    name = forms.CharField(max_length=15, min_length=4)
+    address = forms.CharField(widget=forms.Textarea, max_length=500, min_length=10)
+    phone_number = forms.CharField(max_length=15, min_length=6)
 
     class Meta:
         """Specify fields to include."""
@@ -50,7 +54,7 @@ class ClientForm(ModelForm):
         ))
 
 
-class MaleMeasurementsForm(ModelForm):
+class MaleMeasurementsForm(forms.ModelForm):
     """MaleMeasurements model mapped form."""
 
     class Meta:
@@ -60,7 +64,7 @@ class MaleMeasurementsForm(ModelForm):
         exclude = ('client',)
 
 
-class FemaleMeasurementsForm(ModelForm):
+class FemaleMeasurementsForm(forms.ModelForm):
     """FemaleMeasurements model mapped form."""
 
     class Meta:
