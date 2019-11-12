@@ -5,15 +5,11 @@ This package includes all the unit tests for api based class authentication and 
 
 import json
 
-from django.conf import settings
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework.authtoken.models import Token
-from rest_framework.test import APIClient
 
-from client.forms import ClientForm, MaleMeasurementsForm
-from client.models import Client, MaleMeasurements
+from client.models import Client
 from tms.utils import TestDbSetUp
 
 

@@ -1,6 +1,5 @@
 """Forms for employee application."""
 
-import datetime
 import re
 
 from django import forms
@@ -27,7 +26,7 @@ class EmployeeForm(forms.ModelForm):
         name = self.cleaned_data['name']
 
         if not self._validate_name(name):
-            raise ValidationError(('Invalid name.'))
+            raise ValidationError('Invalid name.')
 
         return name
 
@@ -36,7 +35,7 @@ class EmployeeForm(forms.ModelForm):
         phone_number = self.cleaned_data['phone_number']
 
         if not self._validate_phone_number(phone_number):
-            raise ValidationError(('Invalid phone number.'))
+            raise ValidationError('Invalid phone number.')
 
         return phone_number
 

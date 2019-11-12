@@ -4,8 +4,6 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
 
-from product.forms import ProductForm, ProductImagesForm
-from product.models import Product, ProductImages
 from tms.utils import TestDbSetUp
 
 

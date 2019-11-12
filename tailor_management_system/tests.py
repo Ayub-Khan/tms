@@ -1,7 +1,7 @@
 """Tests for tailor management system application."""
 
 
-from django.template import Context, Template, TemplateSyntaxError
+from django.template import Context, Template
 from django.test import TestCase
 
 

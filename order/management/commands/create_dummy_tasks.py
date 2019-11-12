@@ -1,6 +1,6 @@
 """Create dummy employees for testing purpose."""
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from order.models import Order, Task
 from tms.constants import DUMMY_ORDER_MARKER, DUMMY_TASK_MARKER

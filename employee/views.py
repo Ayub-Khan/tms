@@ -1,13 +1,9 @@
 """Views for order application."""
 
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader
 from rest_framework.views import View
 
-from client.models import Client
 from employee.forms import EmployeeForm
 from employee.models import Employee
 from order.models import Task
