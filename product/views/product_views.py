@@ -1,10 +1,8 @@
 """Product related views."""
 
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader
 from rest_framework.views import View
 
 from product.forms import ProductForm
@@ -32,9 +30,17 @@ class ProductDetailView(LoginRequiredMixin, View):
     def get(self, request, id):
         """Render product detail template.."""
         product = get_object_or_404(Product, id=id)
+        product_images = ProductImages.objects.filter(product=product).first()
+        if product_images:
+            product_images_dict = model_to_dict(product_images)
+            product_images_dict.pop('id')
+            product_images_dict.pop('product')
+        else:
+            product_images_dict = {}
         context = {
             'product': product,
-            'has_images': ProductImages.objects.filter(product=product).exists(),
+            'product_images': product_images,
+            'product_images_dict': product_images_dict
         }
         return render(request, 'product/product-detail.html', context)
 
@@ -85,7 +91,7 @@ class ProductUpdateView(LoginRequiredMixin, View):
         product = get_object_or_404(Product, id=id)
         form = ProductForm(instance=product)
         return render(request, 'product/add-product.html',
-                      {'form': form, 'func': 'Update'})
+                      {'form': form, 'func': 'Update', 'product': product})
 
     def post(self, request, id):
         """Update product and redirect to product list."""
@@ -95,7 +101,7 @@ class ProductUpdateView(LoginRequiredMixin, View):
             new_product = form.save()
             return redirect('product:product_detail', id=new_product.id)
         else:
-            return render(request, 'product/add-product.html', {'form': form, 'func': 'Update'})
+            return render(request, 'product/add-product.html', {'form': form, 'func': 'Update', 'product': product})
 
 
 product_update_view = ProductUpdateView.as_view()

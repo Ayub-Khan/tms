@@ -4,6 +4,7 @@ django==2.2.6
 djangorestframework==3.10.3
 pillow==6.2.1
 ddt===1.2.1
+django-crispy-forms==1.8.0
 
 # testing
 pycodestyle==2.5.0

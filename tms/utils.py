@@ -27,9 +27,9 @@ class RandomDataGenerator:
     def get_random_alpha_string(self, length=5):
         """Generate a random alpha string."""
         random_string = ''.join(random.choices(string.ascii_letters + ' ', k=length))
-        return random_string
+        return random_string.lower()
 
-    def get_random_address(self, length=5):
+    def get_random_address(self, length=10):
         """Generate a random alpha string."""
         random_string = ''.join(random.choices(string.ascii_letters, k=length))
         return random_string
@@ -146,7 +146,7 @@ class TestDbSetUp(RandomDataGenerator):
 
     def create_product_images(self, product):
         """Create product."""
-        path = pth = settings.BASE_DIR + '/tms/test_image.jpg'
+        path = settings.BASE_DIR + '/tms/test_image.jpg'
         test_img = SimpleUploadedFile(
             name='test_image.jpg',
             content=open(path, 'rb').read(),

@@ -1,13 +1,10 @@
 """Models for product appliction."""
 
 import os
-import uuid
 
-from django.conf import settings
 from django.db import models
 from django.dispatch import receiver
 from django.forms.models import model_to_dict
-from django.utils.translation import ugettext_lazy as _
 
 
 class Product(models.Model):

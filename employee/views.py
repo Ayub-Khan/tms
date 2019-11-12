@@ -1,15 +1,12 @@
 """Views for order application."""
 
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader
 from rest_framework.views import View
 
-from client.models import Client
 from employee.forms import EmployeeForm
 from employee.models import Employee
+from order.models import Task
 
 
 class EmployeeListView(LoginRequiredMixin, View):
@@ -35,6 +32,7 @@ class EmployeeDetailView(LoginRequiredMixin, View):
         employee = Employee.objects.get(id=id)
         context = {
             'employee': employee,
+            'tasks': Task.objects.filter(employee=employee)
         }
         return render(request, 'employee/employee-detail.html', context)
 
@@ -72,7 +70,7 @@ class EmployeeUpdateView(LoginRequiredMixin, View):
         employee = get_object_or_404(Employee, id=id)
         form = EmployeeForm(instance=employee)
         return render(request, 'employee/add-employee.html',
-                      {'form': form, 'func': 'Update'})
+                      {'form': form, 'func': 'Update', 'employee': employee})
 
     def post(self, request, id):
         """Save employee and redirect to employee list."""
@@ -82,7 +80,7 @@ class EmployeeUpdateView(LoginRequiredMixin, View):
             new_employee = form.save()
             return redirect('employee:employee_detail', id=new_employee.id)
         else:
-            return render(request, 'employee/add-employee.html', {'form': form, 'func': 'Update'})
+            return render(request, 'employee/add-employee.html', {'form': form, 'func': 'Update', 'employee': employee})
 
 
 employee_update_view = EmployeeUpdateView.as_view()

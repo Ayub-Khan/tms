@@ -12,6 +12,8 @@ from order.models import Order, Task
 class OrderForm(forms.ModelForm):
     """Order model mapped form."""
 
+    order = forms.CharField(max_length=50, min_length=5)
+    instructions = forms.CharField(widget=forms.Textarea, max_length=500, min_length=10)
     delivery_date = forms.DateField(widget=SelectDateWidget(empty_label="Delivery Date"))
 
     class Meta:
@@ -33,6 +35,7 @@ class OrderForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
     """Task model mapped form."""
 
+    description = forms.CharField(widget=forms.Textarea, max_length=500, min_length=10)
     deadline = forms.DateField(widget=SelectDateWidget(empty_label="Deadline"))
 
     class Meta:

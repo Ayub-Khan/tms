@@ -1,15 +1,12 @@
 """Views for order application."""
 
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader
 from rest_framework.views import View
 
 from client.models import Client
 from order.forms import OrderForm
-from order.models import Order
+from order.models import Order, Task
 
 
 class OrderListView(LoginRequiredMixin, View):
@@ -33,8 +30,10 @@ class OrderDetailView(LoginRequiredMixin, View):
     def get(self, request, id):
         """Render order detail tempalte.."""
         order = Order.objects.get(id=id)
+        tasks = Task.objects.filter(order=order)
         context = {
             'order': order,
+            'tasks': tasks
         }
         return render(request, 'order/order-detail.html', context)
 
@@ -47,9 +46,10 @@ class OrderAddView(LoginRequiredMixin, View):
 
     def get(self, request, client_id):
         """Return add new order form."""
+        client = get_object_or_404(Client, id=client_id)
         form = OrderForm()
         return render(request, 'order/add-order.html',
-                      {'form': form, 'func': 'Add'})
+                      {'form': form, 'func': 'Add', 'client': client})
 
     def post(self, request, client_id):
         """Save order and redirect to order list."""
@@ -61,7 +61,7 @@ class OrderAddView(LoginRequiredMixin, View):
             new_order.save()
             return redirect('order:orders')
         else:
-            return render(request, 'order/add-order.html', {'form': form, 'func': 'Add'})
+            return render(request, 'order/add-order.html', {'form': form, 'func': 'Add', 'client': client})
 
 
 order_add_view = OrderAddView.as_view()
@@ -75,7 +75,7 @@ class OrderUpdateView(LoginRequiredMixin, View):
         order = get_object_or_404(Order, id=id)
         form = OrderForm(instance=order)
         return render(request, 'order/add-order.html',
-                      {'form': form, 'func': 'Update'})
+                      {'form': form, 'func': 'Update', 'order': order})
 
     def post(self, request, id):
         """Save order and redirect to order list."""
@@ -88,7 +88,7 @@ class OrderUpdateView(LoginRequiredMixin, View):
             new_order.save()
             return redirect('order:orders')
         else:
-            return render(request, 'order/add-order.html', {'form': form, 'func': 'Update'})
+            return render(request, 'order/add-order.html', {'form': form, 'func': 'Update', 'order': order})
 
 
 order_update_view = OrderUpdateView.as_view()

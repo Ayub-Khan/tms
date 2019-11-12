@@ -1,25 +1,42 @@
-{% load clean_title %}
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 
-<head>
-    <title> {% clean_title title %}</title>
-</head>
+{% block content %}
+<!-- begin:: Content -->
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
 
-<body>
-    <a href="{% url 'logout' %}"> <Button> Logout </Button></a>
-    <a href="{% url 'tailor_management_system:dashboard' %}"> <Button> Home Page </Button></a>
+    <!--begin::Portlet-->
+    <div class="kt-portlet">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">
+                    Enter Measurment Details For "{{ client.name }}"
+                </h3>
+            </div>
+        </div>
 
-    <h2>Enter Measurment Details For {{ client_name }}</h2>
-    {% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="{{ func }}">
-    </form>
-    {% endblock %}
-</body>
+        <!--begin::Form-->
+        {% if func == "Add" %}
+        <form class="kt-form kt-portlet__body" action="{% url 'client:measurment_add' client.id %}" method="post">
+        {% else %}
+        <form class="kt-form kt-portlet__body" action="{% url 'client:measurment_update' client.id %}" method="post">
+        {% endif %}
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="kt-portlet__foot">
+                <div class="kt-form__actions">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{% url 'client:clients' %}" class="btn btn-default">Add later</a>
+                </div>
+            </div>
+        </form>
 
-</html>
+        <!--end::Form-->
+    </div>
+
+    <!--end::Portlet-->
+</div>
+
+<!-- end:: Content -->
+{% endblock %}
