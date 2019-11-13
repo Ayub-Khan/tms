@@ -4,7 +4,7 @@ jobs:
 
   build:
 
-    working_directory: ~/TMS
+    working_directory: ~/tms
 
     docker:
 
@@ -19,8 +19,6 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
 
       - run: make requirements
-
-      - run: export DJANGO_SETTINGS_MODULE=tms.local_settings
 
       - run: make test-quality
 
