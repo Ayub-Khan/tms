@@ -1,6 +1,7 @@
 """Views for order application."""
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework.views import View
 
@@ -15,8 +16,11 @@ class EmployeeListView(LoginRequiredMixin, View):
     def get(self, request):
         """Render employee list template.."""
         employees = Employee.objects.all()
+        task_groupby_employee = Task.objects.all().values('employee').annotate(total=Count('employee'))
+        employee_with_no_of_tasks = {emp_task['employee']: emp_task['total'] for emp_task in task_groupby_employee}
         context = {
             'employees': employees,
+            'employee_task_dict': employee_with_no_of_tasks
         }
         return render(request, 'employee/list-employees.html', context)
 

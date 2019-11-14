@@ -42,7 +42,6 @@ class Command(BaseCommand, RandomDataGenerator):
                         'payment_status': False,
                         'payment_amount': 10000,
                         'advance_payment_amount': 2000,
-                        'delivery_date': get_future_date(),
                         'order': DUMMY_ORDER_MARKER,
                         'instructions': DUMMY_ORDER_MARKER,
                         'delivery_date': get_future_date(5)
