@@ -11,7 +11,7 @@ from client.models import Client, FemaleMeasurements, MaleMeasurements
 class ClientForm(forms.ModelForm):
     """Client model mapped form."""
 
-    name = forms.CharField(max_length=15, min_length=4)
+    name = forms.CharField(max_length=50, min_length=4)
     address = forms.CharField(widget=forms.Textarea, max_length=500, min_length=10)
     phone_number = forms.CharField(max_length=15, min_length=6)
 

@@ -97,9 +97,13 @@ class ProductUpdateView(LoginRequiredMixin, View):
         """Update product and redirect to product list."""
         product = get_object_or_404(Product, id=id)
         form = ProductForm(request.POST, instance=product)
+        has_images = ProductImages.objects.filter(product=product).exists()
         if form.is_valid():
             new_product = form.save()
-            return redirect('product:product_detail', id=new_product.id)
+            if has_images:
+                return redirect('product:product_images_update', product_id=new_product.id)
+            else:
+                return redirect('product:product_images_add', product_id=new_product.id)
         else:
             return render(request, 'product/add-product.html', {'form': form, 'func': 'Update', 'product': product})
 

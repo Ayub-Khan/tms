@@ -10,6 +10,7 @@ __pycache__/
 .Python
 build/
 /media
+/tms/media
 develop-eggs/
 dist/
 downloads/

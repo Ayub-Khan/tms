@@ -82,6 +82,7 @@
                                     <i class="la la-edit"></i>
                                 </a>
                                 <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md delete-element-class"
+                                    onclick="delOnClick(this)"
                                     id="{{ task.id }}">
                                     <i class="la la-trash"></i>
                                 </a>
@@ -102,17 +103,14 @@
 {% block page-scripts %}
 <script src="{% static 'js/pages/crud/metronic-datatable/base/html-table.js' %}" type="text/javascript"></script>
 <script>
-    $(document).ready(function () {
-        $('.delete-element-class').click(function () {
-            var url = "{% url 'order:task_delete' %}"
-            var id = $(this).attr("id")
-            console.log("This is the id: ${id}")
-            var intId = parseInt(id)
-            var data = { id: intId, csrfmiddlewaretoken: '{{ csrf_token }}', contentType: 'application/json' }
-            $.post(url, data, function (data, status) {
-                location.reload(true)
-            })
+    function delOnClick(ref) {
+        var url = "{% url 'order:task_delete' %}"
+        var id = $(ref).attr("id")
+        var intId = parseInt(id)
+        var data = { id: intId, csrfmiddlewaretoken: '{{ csrf_token }}', contentType: 'application/json' }
+        $.post(url, data, function (data, status) {
+            location.reload(true)
         })
-    })
+    }
 </script>
 {% endblock %}
