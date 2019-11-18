@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework.views import View
 
 from client.forms import ClientForm
-from client.models import Client
+from client.models import Client, MaleMeasurements, FemaleMeasurements
 from client.utils import get_measurements
 from order.models import Order
 
@@ -97,10 +97,18 @@ class ClientUpdateView(LoginRequiredMixin, View):
     def post(self, request, pk):
         """Update client by id ."""
         client = get_object_or_404(Client, id=pk)
+        measurements_exist = False
+        if client.gender == 'M':
+            measurements_exist = MaleMeasurements.objects.filter(client=client).exists()
+        else:
+            measurements_exist = FemaleMeasurements.objects.filter(client=client).exists()
         form = ClientForm(request.POST, instance=client)
         if form.is_valid():
             form.save()
-            return redirect('client:clients')
+            if measurements_exist:
+                return redirect('client:measurment_update', client_id=client.id)
+            else:
+                return redirect('client:measurment_add', client_id=client.id)
         else:
             return render(request, 'client/add-client.html', {'form': form, 'client': client})
 

@@ -99,10 +99,7 @@
       @media (max-width: 768px) {
         .kt-wizard-v2 .kt-wizard-v2__wrapper .kt-form {
           padding: 2rem 2.5rem 4rem; } }
-      .kt-wizard-v2 .kt-wizard-v2__wrapper .kt-form .kt-wizard-v2__content {
-        padding-bottom: 1.3rem;
-        border-bottom: 1px solid #eeeef4;
-        margin-bottom: 2rem; }
+      .kt-wizard-v2 .kt-wizard-v2__wrapper .kt-form .kt-wizard-v2__content,
         .kt-wizard-v2 .kt-wizard-v2__wrapper .kt-form .kt-wizard-v2__content .kt-wizard-v2__review .kt-wizard-v2__review-item {
           padding-bottom: 1rem;
           margin-bottom: 1rem;
