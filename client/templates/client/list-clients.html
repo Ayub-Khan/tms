@@ -1,93 +1,96 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load clean_title %}
+{% load get_modulus_value %}
 
 {% block content %}
 <!-- begin:: Content -->
-<div class="kt-container  kt-grid__item kt-grid__item--fluid">
-    <div class="kt-portlet kt-portlet--mobile">
-        <div class="kt-portlet__head kt-portlet__head--lg">
-            <div class="kt-portlet__head-label">
-                <span class="kt-portlet__head-icon">
-                </span>
-            </div>
-            <div class="kt-portlet__head-toolbar">
-                <div class="kt-portlet__head-wrapper">
-                    &nbsp;
-                    <a href="{% url 'client:client_add' %}" class="text-center btn-outline-primary"><Button
-                            class="btn btn-primary"><i class="flaticon2-plus"></i>Add New Client</Button></a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-portlet__body">
+{% for client in clients %}
 
-            <!--begin: Search Form -->
-            <div class="kt-form kt-form--label-right kt-margin-t-2 kt-margin-b-10">
-                <div class="row align-items-center">
-                    <div class="col-xl-8 order-2 order-xl-1">
-                        <div class="row">
-                            <div style="padding-left:6%" class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-input-icon kt-input-icon--left">
-                                    <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
-                                    <span class="kt-input-icon__icon kt-input-icon__icon--left">
-                                        <span><i class="la la-search"></i></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+{% if forloop.counter|get_modulus_value:4 == 1 %}
+<div class="row">
+    {% endif %}
+    <div class="col-xl-3">
+
+        <!--Begin::Portlet-->
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__head kt-portlet__head--noborder">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <a href="#" class="btn btn-icon" data-toggle="dropdown">
+                        <i class="flaticon-more-1 kt-font-brand"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <ul class="kt-nav">
+                            <li class="kt-nav__item">
+                                <a href="{% url 'client:client_detail' client.id %}" class="kt-nav__link">
+                                    <i class="kt-nav__link-icon flaticon2-expand"></i>
+                                    <span class="kt-nav__link-text">Details</span>
+                                </a>
+                            </li>
+                            <li class="kt-nav__item">
+                                <a href="{% url 'client:client_update' client.id %}" class="kt-nav__link">
+                                    <i class="kt-nav__link-icon flaticon2-pen"></i>
+                                    <span class="kt-nav__link-text">Edit</span>
+                                </a>
+                            </li>
+                            <li class="kt-nav__item" id="{{ client.id }}" onclick="delOnClick(this)">
+                                <a href="client:clients" class="kt-nav__link">
+                                    <i class="kt-nav__link-icon flaticon2-trash"></i>
+                                    <span class="kt-nav__link-text">Delete</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
+            <div class="kt-portlet__body">
 
-            <!--end: Search Form -->
-        </div>
-        <div class="kt-portlet__body kt-portlet__body--fit">
+                <!--begin::Widget -->
+                <div class="kt-widget kt-widget--user-profile-2">
+                    <div class="kt-widget__head">
+                        <div class="kt-widget__info" style="padding-left:0rem !important;">
+                            <a href="{% url 'client:client_detail' client.id %}" class="kt-widget__username">
+                                {{ client.name }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="kt-widget__body">
+                        <div class="kt-widget__item">
+                            <div class="kt-widget__contact">
+                                <span class="kt-widget__label">Email:</span>
+                                <a class="kt-widget__data">{{ client.email }}</a>
+                            </div>
+                            <div class="kt-widget__contact">
+                                <span class="kt-widget__label">Phone:</span>
+                                <a class="kt-widget__data">{{ client.phone_number }}</a>
+                            </div>
+                            <div class="kt-widget__contact">
+                                <span class="kt-widget__label">Location:</span>
+                                <span class="kt-widget__data">{{ client.address }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-widget__footer">
+                        <a href="{% url 'order:order_add' client.id %}"
+                            class="btn btn-label-warning btn-lg btn-upper">Add Order</a>
+                    </div>
+                </div>
 
-            <!--begin: Datatable -->
-            <table class="kt-datatable table-striped" width="100%">
-                <thead>
-                    <tr>
-                        <th title="Field #1">Name</th>
-                        <th title="Field #2">Phone</th>
-                        <th title="Field #4">Gender</th>
-                        <th title="Field #3">Email</th>
-                        <th title="Field #5">Age</th>
-                        <th title="Field #6">Actions</th>
-                        <th>Hidden</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for client in clients %}
-                    <tr>
-                        <td>{{ client.name}}</td>
-                        <td>{{ client.phone_number }}</td>
-                        <td>{{ client.gender }}</td>
-                        <td>{{ client.email}}</td>
-                        <td>{{ client.age }}</td>
-                        <td data-field="Field #6" data-autohide-disabled="false" class="kt-datatable__cell">
-                            <a href="{% url 'client:client_detail' client.id %}" title="View"
-                                class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                <i class="la la-file-text"></i>
-                            </a>
-                            <a href="{% url 'client:client_update' client.id %}" title="Edit"
-                                class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                <i class="la la-edit"></i>
-                            </a>
-                            <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                onclick="delOnClick(this)"
-                                id="{{ client.id }}">
-                                <i class="la la-trash"></i>
-                            </a>
-                            </span></td>
-                        <td>Hidden</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <!--end: Datatable -->
+                <!--end::Widget -->
+            </div>
         </div>
+
+        <!--End::Portlet-->
     </div>
+
+    {% if forloop.counter|get_modulus_value:4 == 0 %}
 </div>
+{% endif %}
+{% endfor %}
 
 <!-- end:: Content -->
 {% endblock %}

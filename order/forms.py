@@ -25,11 +25,21 @@ class OrderForm(forms.ModelForm):
     def clean_delivery_date(self):
         """Check if date is valid."""
         delivery_date = self.cleaned_data['delivery_date']
-
         if delivery_date < datetime.date.today():
             raise ValidationError(('Delivery date can not be in past.'))
 
         return delivery_date
+
+    def clean_status(self):
+        """Check if status is valid."""
+        status = self.cleaned_data['status']
+
+        if (status == Order.DELIVERED) or (status == Order.CLOSED):
+            incomplete_task_count = Task.objects.exclude(status=Task.COMPLETED).count()
+            if incomplete_task_count:
+                raise ValidationError(('Some tasks against this order are still pending, please finish them first.'))
+
+        return status
 
 
 class TaskForm(forms.ModelForm):

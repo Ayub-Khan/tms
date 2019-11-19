@@ -3,95 +3,91 @@
 {% load clean_title %}
 {% load get_dict_value %}
 {% block content %}
+<!-- begin:: Content -->
+{% for employee in employees %}
 <div class="kt-container  kt-grid__item kt-grid__item--fluid">
-    <div class="kt-portlet kt-portlet--mobile">
-        <div class="kt-portlet__head kt-portlet__head--lg">
-            <div class="kt-portlet__head-label">
-                <span class="kt-portlet__head-icon">
-                </span>
-            </div>
-            <div class="kt-portlet__head-toolbar">
-                <div class="kt-portlet__head-wrapper">
-                    &nbsp;
-                    <a href="{% url 'employee:employee_add' %}" class="text-center btn-outline-primary"><Button
-                            class="btn btn-primary"><i class="flaticon2-plus"></i>Add New Employee</Button></a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-portlet__body">
 
-            <!--begin: Search Form -->
-            <div class="kt-form kt-form--label-right kt-margin-t-2 kt-margin-b-10">
-                <div class="row align-items-center">
-                    <div class="col-xl-8 order-2 order-xl-1">
-                        <div class="row">
-                            <div style="padding-left:6%" class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-input-icon kt-input-icon--left">
-                                    <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
-                                    <span class="kt-input-icon__icon kt-input-icon__icon--left">
-                                        <span><i class="la la-search"></i></span>
-                                    </span>
+    {% get_dict_value employee_with_no_of_tasks employee.id as task_tuple %}
+    <!--begin:: Portlet-->
+    <div class="kt-portlet">
+        <div class="kt-portlet__body">
+            <div class="kt-widget kt-widget--user-profile-3">
+                <div class="kt-widget__top">
+                    <div class="kt-widget__content">
+                        <div class="kt-widget__head">
+                            <a href="{% url 'employee:employee_detail' employee.id %}" class="kt-widget__username">
+                                {{ employee.name }}
+                            </a>
+                            <div class="kt-widget__action">
+                                <a href="{% url 'employee:employee_detail' employee.id %}"
+                                    class="btn btn-label-success btn-sm btn-upper">Employee Details</a>&nbsp;
+                            </div>
+                        </div>
+                        <div class="kt-widget__subhead">
+                            <a><i class="flaticon2-calendar-3"></i>{{ employee.gender }} </a>
+                            <a><i class="flaticon2-phone"></i>{{ employee.phone_number }}</a>
+                        </div>
+                        <div class="kt-widget__info">
+                            <div class="kt-widget__desc">
+                                Address: {{ employee.address  }}
+                            </div>
+                            <div class="kt-widget__progress">
+                                <div class="kt-widget__text">
+                                    Progress
                                 </div>
+                                {% if not task_tuple.0 == 0 %}
+                                <div class="progress" style="height: 5px;width: 100%;">
+                                    <div class="progress-bar kt-bg-success" role="progressbar"
+                                        style="width: {{ task_tuple.2 }}%;" aria-valuenow="{{ task_tuple.2 }}"
+                                        aria-valuemin="0" aria-valuemax="{{ task_tuple.0 }}"></div>
+                                </div>
+                                <div class="kt-widget__stats">
+                                    {{ task_tuple.2 }}%
+                                </div>
+                                {% else %}
+                                <span>No tasks are assigned to this employee yet!</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="kt-widget__bottom" style="margin-left: 2% !important;">
+                    <div class="kt-widget__item">
+                        <div class="kt-widget__icon">
+                            <i class="flaticon-list"></i>
+                        </div>
+                        <div class="kt-widget__details">
+                            <span class="kt-widget__title">{{ task_tuple.0 }} Tasks Assigned</span>
+                        </div>
+                    </div>
+                    <div class="kt-widget__item">
+                        <div class="kt-widget__icon">
+                            <i class="flaticon-clock-2"></i>
+                        </div>
+                        <div class="kt-widget__details">
+                            <span class="kt-widget__title">{{ task_tuple.1 }} Tasks Pending</span>
+                        </div>
+                    </div>
+                    <div class="kt-widget__item">
+                        <div class="kt-widget__icon">
+                            <i class="flaticon2-check-mark"></i>
+                        </div>
+                        <div class="kt-widget__details">
+                            <span class="kt-widget__title">{{ task_tuple.3 }} Tasks Completed</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!--end: Search Form -->
-        </div>
-        <div class="kt-portlet__body kt-portlet__body--fit">
-
-            <!--begin: Datatable -->
-            <table class="kt-datatable table-striped" width="100%">
-                <thead class="thead-dark">
-                    <tr>
-                        <th title="Field #1">Name</th>
-                        <th title="Field #2">Phone</th>
-                        <th title="Field #4">Gender</th>
-                        <th title="Field #5">Joining Date</th>
-                        <th title="Field #6">No Of Tasks Assigned</th>
-                        <th title="Field #7">Actions</th>
-                        <th>Hidden</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for employee in employees %}
-                    <tr>
-                        <td>{{ employee.name }}</td>
-                        <td>{{ employee.phone_number }}</td>
-                        <td>{{ employee.gender}}</td>
-                        <td>{{ employee.joining_date}}</td>
-                        <td>{% get_dict_value employee_task_dict employee.id %}</td>
-                        <td data-field="Field #6" data-autohide-disabled="false" class="kt-datatable__cell"><span
-                                style="overflow: visible; position: relative; width: 110px;">
-                                <a href="{% url 'employee:employee_detail' employee.id %}" title="View"
-                                    class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                    <i class="la la-file-text"></i>
-                                </a>
-                                <a href="{% url 'employee:employee_update' employee.id %}" title="Edit"
-                                    class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                    <i class="la la-edit"></i>
-                                </a>
-                                <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md delete-element-class"
-                                    onclick="delOnClick(this)"
-                                    id="{{ employee.id }}">
-                                    <i class="la la-trash"></i>
-                                </a>
-                            </span></td>
-                        <td>Hidden</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <!--end: Datatable -->
         </div>
     </div>
+
+    <!--end:: Portlet-->
 </div>
+{% endfor %}
+<!-- end:: Content -->
 {% endblock %}
 
 {% block page-scripts %}
-<script src="{% static 'js/pages/crud/metronic-datatable/base/html-table.js' %}" type="text/javascript"></script>
 <script>
     function delOnClick(ref) {
         var url = "{% url 'employee:employee_delete' %}"
