@@ -2,7 +2,8 @@
 
 from django.core.management.base import BaseCommand
 
-from client.models import Client
+from client.models import Client, MaleMeasurements
+from tms.constants import DUMMY_EMAIL_MARKER
 from tms.utils import RandomDataGenerator
 
 
@@ -45,4 +46,31 @@ class Command(BaseCommand, RandomDataGenerator):
                 client_list.append(client)
 
             Client.objects.bulk_create(client_list)
-            self.stdout.write('Dummy clients created successfully.')
+
+            # Adding measurements
+            dummy_clients = Client.objects.filter(email__endswith=DUMMY_EMAIL_MARKER)
+            for client in dummy_clients:
+                male_measurements = MaleMeasurements.objects.create(**{
+                    'client': client,
+                    'unit': 'cm',
+                    'shoulder': 12,
+                    'armscye': 12,
+                    'chest': 12,
+                    'bust': 12,
+                    'waist': 12,
+                    'arm_length': 12,
+                    'hips': 12,
+                    'ankle': 12,
+                    'neck': 12,
+                    'back_width': 12,
+                    'inseam': 12,
+                    'wrist': 12,
+                    'crutch_depth': 12,
+                    'waist_to_knee': 12,
+                    'knee_line': 12,
+                    'biceps': 12,
+
+                })
+                male_measurements.save()
+
+            self.stdout.write('Dummy clients created successfully with measurements.')

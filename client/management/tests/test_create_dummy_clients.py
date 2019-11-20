@@ -16,7 +16,7 @@ class CreateDummyClientsTest(TestCase, TestDbSetUp):
     @ddt.data(
         (0, 'Can not create -ive or zero number of clients.'),
         (-1, 'Can not create -ive or zero number of clients.'),
-        (100, 'Dummy clients created successfully.')
+        (100, 'Dummy clients created successfully with measurements.')
     )
     @ddt.unpack
     def test_create_dummy_clients(self, total, msg):
