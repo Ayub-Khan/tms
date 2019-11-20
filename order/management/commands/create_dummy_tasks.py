@@ -4,8 +4,7 @@ from django.core.management.base import BaseCommand
 
 from employee.models import Employee
 from order.models import Order, Task
-from tms.constants import (DUMMY_ADDRESS_MARKER, DUMMY_ORDER_MARKER,
-                           DUMMY_TASK_MARKER)
+from tms.constants import DUMMY_ADDRESS_MARKER, DUMMY_ORDER_MARKER, DUMMY_TASK_MARKER
 from tms.utils import RandomDataGenerator, get_future_date
 
 
@@ -17,7 +16,7 @@ class Command(BaseCommand, RandomDataGenerator):
     def add_arguments(self, parser):
         """Argument specifying how many dummy employees to create."""
         parser.add_argument(
-            '--total', type=int, help='Indicates the number of clients to be created.', default=15,
+            '--total', type=int, help='Indicates the number of clients to be created.', default=5,
         )
 
     def handle(self, *args, **kwargs):
@@ -33,22 +32,19 @@ class Command(BaseCommand, RandomDataGenerator):
             dummy_employees = Employee.objects.filter(address=DUMMY_ADDRESS_MARKER)
             dummy_employees_count = dummy_employees.count()
 
-            chosen_orders = []
-            for i in range(0, no_of_orders):
-                chosen_orders.append(orders[self.get_random_number(upper_limit=orders.count())])
-
             tasks = []
-            for i in range(0, no_of_tasks):
-                task = Task(
-                    **{
-                        'order': chosen_orders[self.get_random_number(upper_limit=len(chosen_orders))],
-                        'status': Task.CREATED,
-                        'description': DUMMY_TASK_MARKER,
-                        'deadline': get_future_date(5),
-                        'employee': dummy_employees[self.get_random_number(upper_limit=dummy_employees_count)]
-                    }
-                )
-                tasks.append(task)
+            for order in orders:
+                for i in range(0, no_of_tasks):
+                    task = Task(
+                        **{
+                            'order': order,
+                            'status': Task.TASK_STATUS_CHOICES[self.get_random_number(lower_limit=0, upper_limit=3)][0],
+                            'description': DUMMY_TASK_MARKER,
+                            'deadline': get_future_date(5),
+                            'employee': dummy_employees[self.get_random_number(upper_limit=dummy_employees_count)]
+                        }
+                    )
+                    tasks.append(task)
 
             Task.objects.bulk_create(tasks)
             self.stdout.write("Dummy tasks created successfully.")

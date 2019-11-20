@@ -85,7 +85,7 @@ class TaskUpdateView(LoginRequiredMixin, View):
             new_task.save()
             return redirect('order:tasks')
         else:
-            return render(request, 'order/add-task.html', {'form': form, 'func': 'Update', 'task': task})
+            return render(request, 'task/add-task.html', {'form': form, 'func': 'Update', 'task': task})
 
 
 task_update_view = TaskUpdateView.as_view()

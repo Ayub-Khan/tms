@@ -16,7 +16,7 @@ class Command(BaseCommand, RandomDataGenerator):
     def add_arguments(self, parser):
         """Argument specifying how many dummy employees to create."""
         parser.add_argument(
-            '--total', type=int, help='Indicates the number of clients to be created.', default=15,
+            '--total', type=int, help='Indicates the number of clients to be created.', default=5,
         )
 
     def handle(self, *args, **kwargs):
@@ -29,25 +29,23 @@ class Command(BaseCommand, RandomDataGenerator):
 
         else:
             no_of_chosen_clients = self.get_random_number(lower_limit=1, upper_limit=clients.count())
-            client_list = []
-            for i in range(0, no_of_chosen_clients):
-                client_list.append(clients[self.get_random_number(upper_limit=clients.count())])
 
             orders = []
-            for i in range(0, no_of_orders):
-                order = Order(
-                    **{
-                        'client': client_list[self.get_random_number(upper_limit=len(client_list))],
-                        'status': Order.RECIEVED,
-                        'payment_status': False,
-                        'payment_amount': 10000,
-                        'advance_payment_amount': 2000,
-                        'order': DUMMY_ORDER_MARKER,
-                        'instructions': DUMMY_ORDER_MARKER,
-                        'delivery_date': get_future_date(5)
-                    }
-                )
-                orders.append(order)
+            for client in clients:
+                for i in range(0, no_of_orders):
+                    order = Order(
+                        **{
+                            'client': client,
+                            'status': Order.RECIEVED,
+                            'payment_status': False,
+                            'payment_amount': 10000,
+                            'advance_payment_amount': 2000,
+                            'order': DUMMY_ORDER_MARKER,
+                            'instructions': DUMMY_ORDER_MARKER,
+                            'delivery_date': get_future_date(5)
+                        }
+                    )
+                    orders.append(order)
 
             Order.objects.bulk_create(orders)
             self.stdout.write("Dummy orders created successfully.")

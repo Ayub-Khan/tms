@@ -1,13 +1,14 @@
 """All the views."""
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework.views import View
 
 from client.forms import ClientForm
-from client.models import Client, MaleMeasurements, FemaleMeasurements
+from client.models import Client, FemaleMeasurements, MaleMeasurements
 from client.utils import get_measurements
-from order.models import Order
+from order.models import Order, Task
 
 
 class ClientListView(LoginRequiredMixin, View):
@@ -17,7 +18,25 @@ class ClientListView(LoginRequiredMixin, View):
         """Render client list tempalte.."""
         clients = Client.objects.all()
         context = {
-            'clients': clients,
+            'clients': clients.order_by('name'),
+        }
+        return render(request, 'client/list-clients.html', context)
+
+    def post(self, request):
+        """Render client list tempalte.."""
+        query = request.POST.get('search_query')
+
+        clients = Client.objects.all()
+
+        if query:
+            clients = clients.filter(
+                Q(name__icontains=query)
+                | Q(phone_number__icontains=query)
+                | Q(email__icontains=query)
+            )
+        context = {
+            'clients': clients.order_by('name'),
+            'query': query
         }
         return render(request, 'client/list-clients.html', context)
 
@@ -33,12 +52,23 @@ class ClientDetailView(LoginRequiredMixin, View):
         client = get_object_or_404(Client, id=pk)
         orders = Order.objects.filter(client=client)
         measurements, measurements_exist = get_measurements(pk, client)
+        tasks_against_orders = {}
+        for order in orders:
+            tasks = Task.objects.filter(order=order)
+            total_task_count = tasks.count()
+            pending_task_count = tasks.exclude(status=Task.COMPLETED).count()
+            percent_complete = 0
+            if total_task_count > 0:
+                percent_complete = round(((total_task_count - pending_task_count)/total_task_count) * 100, 2)
+            tasks_against_orders[order.id] = (total_task_count, pending_task_count, percent_complete)
+
         context = {
             'client': client,
             'measurements': measurements,
             'measurements_exist': measurements_exist,
             'is_male': client.gender == 'M',
-            'orders': orders
+            'orders': orders,
+            'tasks_against_orders': tasks_against_orders
         }
         return render(request, 'client/client-detail.html', context)
 
