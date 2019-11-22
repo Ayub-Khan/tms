@@ -1,4 +1,5 @@
 {% load static %}
+{% load get_dict_value %}
 <!--begin:: Widgets/Activity-->
 <div
     class="kt-portlet kt-portlet--fit kt-portlet--head-lg kt-portlet--head-overlay kt-portlet--skin-solid kt-portlet--height-fluid">
@@ -10,44 +11,26 @@
         </div>
         <div class="kt-portlet__head-toolbar">
             <a href="#" class="btn btn-label-light btn-sm btn-bold dropdown-toggle" data-toggle="dropdown">
-                Export
+                Details
             </a>
             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
                 <ul class="kt-nav">
                     <li class="kt-nav__section kt-nav__section--first">
-                        <span class="kt-nav__section-text">Finance</span>
+                        <span class="kt-nav__section-text">Order</span>
                     </li>
                     <li class="kt-nav__item">
-                        <a href="#" class="kt-nav__link">
+                        <a href="{% url 'order:orders' %}" class="kt-nav__link">
                             <i class="kt-nav__link-icon flaticon2-graph-1"></i>
-                            <span class="kt-nav__link-text">Statistics</span>
-                        </a>
-                    </li>
-                    <li class="kt-nav__item">
-                        <a href="#" class="kt-nav__link">
-                            <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                            <span class="kt-nav__link-text">Events</span>
-                        </a>
-                    </li>
-                    <li class="kt-nav__item">
-                        <a href="#" class="kt-nav__link">
-                            <i class="kt-nav__link-icon flaticon2-layers-1"></i>
-                            <span class="kt-nav__link-text">Reports</span>
+                            <span class="kt-nav__link-text">All orders</span>
                         </a>
                     </li>
                     <li class="kt-nav__section">
-                        <span class="kt-nav__section-text">Customers</span>
+                        <span class="kt-nav__section-text">Tasks</span>
                     </li>
                     <li class="kt-nav__item">
-                        <a href="#" class="kt-nav__link">
+                        <a href="{% url 'order:tasks' %}" class="kt-nav__link">
                             <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                            <span class="kt-nav__link-text">Notifications</span>
-                        </a>
-                    </li>
-                    <li class="kt-nav__item">
-                        <a href="#" class="kt-nav__link">
-                            <i class="kt-nav__link-icon flaticon2-file-1"></i>
-                            <span class="kt-nav__link-text">Files</span>
+                            <span class="kt-nav__link-text">All tasks</span>
                         </a>
                     </li>
                 </ul>
@@ -83,7 +66,7 @@
                             Delivered
                         </span>
                         <span class="kt-widget17__desc">
-                            15 New Paskages
+                            {% get_dict_value order_stats "D" %} Orders Delivered
                         </span>
                     </div>
                     <div class="kt-widget17__item">
@@ -102,10 +85,10 @@
                                 </g>
                             </svg> </span>
                         <span class="kt-widget17__subtitle">
-                            Ordered
+                            Pending
                         </span>
                         <span class="kt-widget17__desc">
-                            72 New Items
+                            {% get_dict_value order_stats "I" %} Orders Pending
                         </span>
                     </div>
                 </div>
@@ -126,10 +109,10 @@
                                 </g>
                             </svg> </span>
                         <span class="kt-widget17__subtitle">
-                            Reported
+                            Total
                         </span>
                         <span class="kt-widget17__desc">
-                            72 Support Cases
+                            {% get_dict_value order_stats "total" %} Total Orders
                         </span>
                     </div>
                     <div class="kt-widget17__item">
@@ -148,10 +131,10 @@
                                 </g>
                             </svg> </span>
                         <span class="kt-widget17__subtitle">
-                            Arrived
+                            Closed
                         </span>
                         <span class="kt-widget17__desc">
-                            34 Upgraded Boxes
+                            {% get_dict_value order_stats "C" %} Closed Orders
                         </span>
                     </div>
                 </div>

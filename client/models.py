@@ -16,6 +16,7 @@ class Client(models.Model):
     address = models.TextField(max_length=500)
     phone_number = models.CharField(max_length=15, unique=True)
     email = models.EmailField(max_length=50, unique=True)
+    creation_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         """Convert object to String."""

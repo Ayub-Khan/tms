@@ -96,141 +96,141 @@ var KTDashboard = function() {
 
     // Daily Sales chart.
     // Based on Chartjs plugin - http://www.chartjs.org/
-    var dailySales = function() {
-        var chartContainer = KTUtil.getByID('kt_chart_daily_sales');
+    // var dailySales = function() {
+    //     var chartContainer = KTUtil.getByID('kt_chart_daily_sales');
 
-        if (!chartContainer) {
-            return;
-        }
+    //     if (!chartContainer) {
+    //         return;
+    //     }
 
-        var chartData = {
-            labels: ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7", "Label 8", "Label 9", "Label 10", "Label 11", "Label 12", "Label 13", "Label 14", "Label 15", "Label 16"],
-            datasets: [{
-                //label: 'Dataset 1',
-                backgroundColor: KTApp.getStateColor('success'),
-                data: [
-                    15, 20, 25, 30, 25, 20, 15, 20, 25, 30, 25, 20, 15, 10, 15, 20
-                ]
-            }, {
-                //label: 'Dataset 2',
-                backgroundColor: '#f3f3fb',
-                data: [
-                    15, 20, 25, 30, 25, 20, 15, 20, 25, 30, 25, 20, 15, 10, 15, 20
-                ]
-            }]
-        };
+    //     var chartData = {
+    //         labels: ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7", "Label 8", "Label 9", "Label 10", "Label 11", "Label 12", "Label 13", "Label 14", "Label 15", "Label 16"],
+    //         datasets: [{
+    //             //label: 'Dataset 1',
+    //             backgroundColor: KTApp.getStateColor('success'),
+    //             data: [
+    //                 15, 20, 25, 30, 25, 20, 15, 20, 25, 30, 25, 20, 15, 10, 15, 20
+    //             ]
+    //         }, {
+    //             //label: 'Dataset 2',
+    //             backgroundColor: '#f3f3fb',
+    //             data: [
+    //                 15, 20, 25, 30, 25, 20, 15, 20, 25, 30, 25, 20, 15, 10, 15, 20
+    //             ]
+    //         }]
+    //     };
 
-        var chart = new Chart(chartContainer, {
-            type: 'bar',
-            data: chartData,
-            options: {
-                title: {
-                    display: false,
-                },
-                tooltips: {
-                    intersect: false,
-                    mode: 'nearest',
-                    xPadding: 10,
-                    yPadding: 10,
-                    caretPadding: 10
-                },
-                legend: {
-                    display: false
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                barRadius: 4,
-                scales: {
-                    xAxes: [{
-                        display: false,
-                        gridLines: false,
-                        stacked: true
-                    }],
-                    yAxes: [{
-                        display: false,
-                        stacked: true,
-                        gridLines: false
-                    }]
-                },
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0
-                    }
-                }
-            }
-        });
-    }
+    //     var chart = new Chart(chartContainer, {
+    //         type: 'bar',
+    //         data: chartData,
+    //         options: {
+    //             title: {
+    //                 display: false,
+    //             },
+    //             tooltips: {
+    //                 intersect: false,
+    //                 mode: 'nearest',
+    //                 xPadding: 10,
+    //                 yPadding: 10,
+    //                 caretPadding: 10
+    //             },
+    //             legend: {
+    //                 display: false
+    //             },
+    //             responsive: true,
+    //             maintainAspectRatio: false,
+    //             barRadius: 4,
+    //             scales: {
+    //                 xAxes: [{
+    //                     display: false,
+    //                     gridLines: false,
+    //                     stacked: true
+    //                 }],
+    //                 yAxes: [{
+    //                     display: false,
+    //                     stacked: true,
+    //                     gridLines: false
+    //                 }]
+    //             },
+    //             layout: {
+    //                 padding: {
+    //                     left: 0,
+    //                     right: 0,
+    //                     top: 0,
+    //                     bottom: 0
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
 
     // Profit Share Chart.
     // Based on Chartjs plugin - http://www.chartjs.org/
-    var profitShare = function() {        
-        if (!KTUtil.getByID('kt_chart_profit_share')) {
-            return;
-        }
+    // var profitShare = function() {        
+    //     if (!KTUtil.getByID('kt_chart_profit_share')) {
+    //         return;
+    //     }
 
-        var randomScalingFactor = function() {
-            return Math.round(Math.random() * 100);
-        };
+    //     var randomScalingFactor = function() {
+    //         return Math.round(Math.random() * 100);
+    //     };
 
-        var config = {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [
-                        35, 30, 35
-                    ],
-                    backgroundColor: [
-                        KTApp.getStateColor('success'),
-                        KTApp.getStateColor('danger'),
-                        KTApp.getStateColor('brand')
-                    ]
-                }],
-                labels: [
-                    'Angular',
-                    'CSS',
-                    'HTML'
-                ]
-            },
-            options: {
-                cutoutPercentage: 75,
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
-                    position: 'top',
-                },
-                title: {
-                    display: false,
-                    text: 'Technology'
-                },
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                },
-                tooltips: {
-                    enabled: true,
-                    intersect: false,
-                    mode: 'nearest',
-                    bodySpacing: 5,
-                    yPadding: 10,
-                    xPadding: 10, 
-                    caretPadding: 0,
-                    displayColors: false,
-                    backgroundColor: KTApp.getStateColor('brand'),
-                    titleFontColor: '#ffffff', 
-                    cornerRadius: 4,
-                    footerSpacing: 0,
-                    titleSpacing: 0
-                }
-            }
-        };
+    //     var config = {
+    //         type: 'doughnut',
+    //         data: {
+    //             datasets: [{
+    //                 data: [
+    //                     35, 30, 35
+    //                 ],
+    //                 backgroundColor: [
+    //                     KTApp.getStateColor('success'),
+    //                     KTApp.getStateColor('danger'),
+    //                     KTApp.getStateColor('brand')
+    //                 ]
+    //             }],
+    //             labels: [
+    //                 'Angular',
+    //                 'CSS',
+    //                 'HTML'
+    //             ]
+    //         },
+    //         options: {
+    //             cutoutPercentage: 75,
+    //             responsive: true,
+    //             maintainAspectRatio: false,
+    //             legend: {
+    //                 display: false,
+    //                 position: 'top',
+    //             },
+    //             title: {
+    //                 display: false,
+    //                 text: 'Technology'
+    //             },
+    //             animation: {
+    //                 animateScale: true,
+    //                 animateRotate: true
+    //             },
+    //             tooltips: {
+    //                 enabled: true,
+    //                 intersect: false,
+    //                 mode: 'nearest',
+    //                 bodySpacing: 5,
+    //                 yPadding: 10,
+    //                 xPadding: 10, 
+    //                 caretPadding: 0,
+    //                 displayColors: false,
+    //                 backgroundColor: KTApp.getStateColor('brand'),
+    //                 titleFontColor: '#ffffff', 
+    //                 cornerRadius: 4,
+    //                 footerSpacing: 0,
+    //                 titleSpacing: 0
+    //             }
+    //         }
+    //     };
 
-        var ctx = KTUtil.getByID('kt_chart_profit_share').getContext('2d');
-        var myDoughnut = new Chart(ctx, config);
-    }
+    //     var ctx = KTUtil.getByID('kt_chart_profit_share').getContext('2d');
+    //     var myDoughnut = new Chart(ctx, config);
+    // }
 
     // Sales Stats.
     // Based on Chartjs plugin - http://www.chartjs.org/
@@ -641,35 +641,35 @@ var KTDashboard = function() {
         }
     }
 
-    // Revenue Change.
-    // Based on Morris plugin - http://morrisjs.github.io/morris.js/
-    var revenueChange = function() {
-        if ($('#kt_chart_revenue_change').length == 0) {
-            return;
-        }
+    // // Revenue Change.
+    // // Based on Morris plugin - http://morrisjs.github.io/morris.js/
+    // var revenueChange = function() {
+    //     if ($('#kt_chart_revenue_change').length == 0) {
+    //         return;
+    //     }
 
-        Morris.Donut({
-            element: 'kt_chart_revenue_change',
-            data: [{
-                    label: "New York",
-                    value: 10
-                },
-                {
-                    label: "London",
-                    value: 7
-                },
-                {
-                    label: "Paris",
-                    value: 20
-                }
-            ],
-            colors: [
-                KTApp.getStateColor('success'),
-                KTApp.getStateColor('danger'),
-                KTApp.getStateColor('brand')
-            ],
-        });
-    }
+    //     Morris.Donut({
+    //         element: 'kt_chart_revenue_change',
+    //         data: [{
+    //                 label: "New York",
+    //                 value: 10
+    //             },
+    //             {
+    //                 label: "London",
+    //                 value: 7
+    //             },
+    //             {
+    //                 label: "Paris",
+    //                 value: 20
+    //             }
+    //         ],
+    //         colors: [
+    //             KTApp.getStateColor('success'),
+    //             KTApp.getStateColor('danger'),
+    //             KTApp.getStateColor('brand')
+    //         ],
+    //     });
+    // }
 
     // Support Tickets Chart.
     // Based on Morris plugin - http://morrisjs.github.io/morris.js/
@@ -775,97 +775,97 @@ var KTDashboard = function() {
 
     // Activities Charts.
     // Based on Chartjs plugin - http://www.chartjs.org/
-    var activitiesChart = function() {
-        if ($('#kt_chart_activities').length == 0) {
-            return;
-        }
+    // var activitiesChart = function() {
+    //     if ($('#kt_chart_activities').length == 0) {
+    //         return;
+    //     }
 
-        var ctx = document.getElementById("kt_chart_activities").getContext("2d");
+    //     var ctx = document.getElementById("kt_chart_activities").getContext("2d");
 
-        var gradient = ctx.createLinearGradient(0, 0, 0, 240);
-        gradient.addColorStop(0, Chart.helpers.color('#e14c86').alpha(1).rgbString());
-        gradient.addColorStop(1, Chart.helpers.color('#e14c86').alpha(0.3).rgbString());
+    //     var gradient = ctx.createLinearGradient(0, 0, 0, 240);
+    //     gradient.addColorStop(0, Chart.helpers.color('#e14c86').alpha(1).rgbString());
+    //     gradient.addColorStop(1, Chart.helpers.color('#e14c86').alpha(0.3).rgbString());
 
-        var config = {
-            type: 'line',
-            data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
-                datasets: [{
-                    label: "Sales Stats",
-                    backgroundColor: Chart.helpers.color('#e14c86').alpha(1).rgbString(),  //gradient
-                    borderColor: '#e13a58',
+    //     var config = {
+    //         type: 'line',
+    //         data: {
+    //             labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+    //             datasets: [{
+    //                 label: "Sales Stats",
+    //                 backgroundColor: Chart.helpers.color('#e14c86').alpha(1).rgbString(),  //gradient
+    //                 borderColor: '#e13a58',
 
-                    pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
-                    pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
-                    pointHoverBackgroundColor: KTApp.getStateColor('light'),
-                    pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+    //                 pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+    //                 pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+    //                 pointHoverBackgroundColor: KTApp.getStateColor('light'),
+    //                 pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
 
-                    //fill: 'start',
-                    data: [
-                        10, 14, 12, 16, 9, 11, 13, 9, 13, 15
-                    ]
-                }]
-            },
-            options: {
-                title: {
-                    display: false,
-                },
-                tooltips: {
-                    mode: 'nearest',
-                    intersect: false,
-                    position: 'nearest',
-                    xPadding: 10,
-                    yPadding: 10,
-                    caretPadding: 10
-                },
-                legend: {
-                    display: false
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        display: false,
-                        gridLines: false,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Month'
-                        }
-                    }],
-                    yAxes: [{
-                        display: false,
-                        gridLines: false,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Value'
-                        },
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                },
-                elements: {
-                    line: {
-                        tension: 0.0000001
-                    },
-                    point: {
-                        radius: 4,
-                        borderWidth: 12
-                    }
-                },
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 10,
-                        bottom: 0
-                    }
-                }
-            }
-        };
+    //                 //fill: 'start',
+    //                 data: [
+    //                     10, 14, 12, 16, 9, 11, 13, 9, 13, 15
+    //                 ]
+    //             }]
+    //         },
+    //         options: {
+    //             title: {
+    //                 display: false,
+    //             },
+    //             tooltips: {
+    //                 mode: 'nearest',
+    //                 intersect: false,
+    //                 position: 'nearest',
+    //                 xPadding: 10,
+    //                 yPadding: 10,
+    //                 caretPadding: 10
+    //             },
+    //             legend: {
+    //                 display: false
+    //             },
+    //             responsive: true,
+    //             maintainAspectRatio: false,
+    //             scales: {
+    //                 xAxes: [{
+    //                     display: false,
+    //                     gridLines: false,
+    //                     scaleLabel: {
+    //                         display: true,
+    //                         labelString: 'Month'
+    //                     }
+    //                 }],
+    //                 yAxes: [{
+    //                     display: false,
+    //                     gridLines: false,
+    //                     scaleLabel: {
+    //                         display: true,
+    //                         labelString: 'Value'
+    //                     },
+    //                     ticks: {
+    //                         beginAtZero: true
+    //                     }
+    //                 }]
+    //             },
+    //             elements: {
+    //                 line: {
+    //                     tension: 0.0000001
+    //                 },
+    //                 point: {
+    //                     radius: 4,
+    //                     borderWidth: 12
+    //                 }
+    //             },
+    //             layout: {
+    //                 padding: {
+    //                     left: 0,
+    //                     right: 0,
+    //                     top: 10,
+    //                     bottom: 0
+    //                 }
+    //             }
+    //         }
+    //     };
 
-        var chart = new Chart(ctx, config);
-    }
+    //     var chart = new Chart(ctx, config);
+    // }
 
     // Bandwidth Charts 1.
     // Based on Chartjs plugin - http://www.chartjs.org/
