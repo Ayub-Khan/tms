@@ -19,6 +19,7 @@ class CreateDummyTasksTest(TestCase, TestDbSetUp):
         self.user, self.username, self.password = self.create_user()
         self.client = self.create_client(email_post_fix=DUMMY_EMAIL_MARKER)
         self.order = self.create_order(self.client)
+        self.employee = self.create_employee()
 
     @ddt.data(
         (0, 'Can not create -ive or zero number of tasks against 0 or no orders.'),

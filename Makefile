@@ -39,7 +39,7 @@ migrations: ## make migrations
 	python manage.py migrate
 
 test: ## run unit tests tp check code funcionality
-	python manage.py test --settings=test_settings
+	tox
 	
 test-quality: ## run test quality checks
 	isort -rc . --diff
